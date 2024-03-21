@@ -52,7 +52,33 @@ module.exports = {
     let student = await context.database.getStudentByID(params.id);
 
     if (!student.ok) {
-      // TODO: Render a fail EJS template
+      const template = ejs.renderFile(
+        "./views/pages/err.ejs",
+        {
+          err: student.content,
+          name: context.config.SITE_NAME,
+          problem_url: context.config.REPORT_A_PROBLEM_URL,
+          locale: context.config.LOCALE,
+          student: student.content,
+          points: studentPoints.content,
+          presets: context.getPresets(),
+          pointChips: context.config.POINT_CHIPS,
+          perms: permLevel,
+          pageDescription: "Student Point Tracker ...",
+          utils: require("../ejs_utils.js"),
+          footer: {
+            name: context.config.FOOTER_ITEM_NAME,
+            link: context.config.FOOTER_ITEM_LINK,
+          },
+        },
+        {
+          views: [path.resolve("./views")],
+        },
+      );
+
+      res.set("Content-Type", "text/html");
+      res.status(500).send(template);
+      return;
     }
 
     let studentPoints = await context.database.getPointsByStudentID(params.id);

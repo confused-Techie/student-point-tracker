@@ -1,0 +1,7 @@
+<%- include("./partials/header"); %>
+
+<div>
+  This page returned an unexpected error: <%= err %>
+</div>
+
+<%- include("./partials/footer", { filename: [ utils.findAssetPath("home-page.js"), utils.findAssetPath("setup-dialogs.js")] }); %>
