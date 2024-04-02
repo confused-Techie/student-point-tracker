@@ -17,3 +17,5 @@ nano docker-compose.yml
 sudo docker-compose pull
 sudo docker-compose up -d --no-deps backend
 ```
+
+`sudo docker logs spt_be`

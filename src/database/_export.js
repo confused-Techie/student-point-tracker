@@ -52,7 +52,7 @@ function wrapper(modToUse) {
       return modToUse.exec(getSqlStorageObject(), ...args);
     } catch(err) {
       console.error(`SQL command error: ${err.toString()}`);
-      console.error(`Args: ${...args}`);
+      console.error(`Args: ${args}`);
       console.error(err);
       return {
         ok: false,
