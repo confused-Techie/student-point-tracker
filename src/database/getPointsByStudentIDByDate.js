@@ -1,10 +1,17 @@
 module.exports = {
   safe: false,
   exec: async (sql, id, date) => {
+    /**
+      * It is mandatory that the dates provided to this function are exactly as follows:
+      * 'YYYY-MM-DDTHH:mm:ss.sssZ'
+      * A format losely based off ISO8601
+      * And what you are provided using JavaScript: 'new Date().toISOString()'
+      * Any other format WILL NOT WORK.
+      */
     const command = await sql`
       SELECT *
       FROM points
-      WHERE student = ${id} AND WHERE created >= ${date}
+      WHERE student = ${id} AND created >= to_timestamp(${date}, 'YYYY-MM-DD HH24:MI:SS:SSSSZ') at time zone 'utc'
       ORDER BY created DESC
     `;
 
