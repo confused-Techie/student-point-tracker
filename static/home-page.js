@@ -32,7 +32,9 @@ window.addEventListener("load", () => {
       // If enter was hit, and the search string seems to be a valid student ID,
       // we will not preform a search, and instead will redirect immediatly to
       // the student page.
-      const studentIdReg = new RegExp(/^[0-9]+$/);
+      // TODO: It's worth noting that this expects a student ID to be at least
+      // 5 digits for allowing a search to occur
+      const studentIdReg = new RegExp(/^[0-9]{5,}$/);
 
       if (studentIdReg.test(searchText.value)) {
         redirectToStudent(searchText.value);

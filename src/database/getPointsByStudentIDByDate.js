@@ -11,7 +11,7 @@ module.exports = {
     const command = await sql`
       SELECT *
       FROM points
-      WHERE student = ${id} AND created >= to_timestamp(${date}, 'YYYY-MM-DD HH24:MI:SS:SSSSZ') at time zone 'utc'
+      WHERE student = ${id} AND created >= to_timestamp(${date}, 'YYYY-MM-DD HH24:MI:SS.SSSSZ') at time zone 'utc'
       ORDER BY created DESC
     `;
 
