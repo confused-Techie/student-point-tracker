@@ -33,7 +33,7 @@ module.exports = {
     // The permissions mean the following:
     // user - Unauthenticated, or no declared permissions. Only read
     // admin - Is a declared administrator. Points:write
-    // student - Is the student who owns the current student page. Duck:write
+    // student - Is the student who owns the current student page.
     let permLevel = "user";
 
     const admin = context.auth.isAdmin(params.user, context);

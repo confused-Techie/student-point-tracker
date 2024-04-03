@@ -2,10 +2,6 @@ function ownership(user, id, context) {
   // This function will be used to determine if the currently logged in `user`
   // has ownership of the resources belonging to this ID.
 
-  // The resources this ID owns would be considered things like modifying the duck.
-  // Which can only be done via the user who has this exact ID.
-  // For now we will assume that the users email address contains this ID.
-
   if (process.env.PROD_STATUS === "dev") {
     if (
       context.config.DEV_LOGIN === user.email &&
