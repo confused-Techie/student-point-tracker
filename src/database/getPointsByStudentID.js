@@ -15,5 +15,5 @@ module.exports = {
           content: `Student ${id} not found. Or points not found.`,
           short: "not_found",
         };
-  }
+  },
 };

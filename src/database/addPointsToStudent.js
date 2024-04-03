@@ -3,7 +3,6 @@ const getStudentByID = require("./getStudentByID.js").exec;
 module.exports = {
   safe: false,
   exec: async (sql, id, points, reason) => {
-
     let student = await getStudentByID(sql, id);
 
     if (!student.ok) {
@@ -56,6 +55,5 @@ module.exports = {
           short: "server_error",
         };
       });
-
-  }
+  },
 };

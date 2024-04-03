@@ -33,7 +33,7 @@ module.exports = {
       },
       {
         views: [path.resolve("./views")],
-      },
+      }
     );
 
     res.set("Content-Type", "text/html");

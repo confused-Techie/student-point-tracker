@@ -10,7 +10,6 @@ const database = require("./database/_export.js");
 const exec = util.promisify(child_process.exec);
 
 module.exports = async function importer(fileName) {
-
   if (fs.existsSync(fileName)) {
     const studentFile = fs.readFileSync(fileName, { encoding: "utf8" });
 
@@ -48,7 +47,7 @@ module.exports = async function importer(fileName) {
 
       if (exists.ok) {
         console.log(
-          `Student '${record.student_id}' already exists in the DB. Skipping...`,
+          `Student '${record.student_id}' already exists in the DB. Skipping...`
         );
         repeatStudentList.push(exists.content);
         continue;
@@ -65,18 +64,18 @@ module.exports = async function importer(fileName) {
 
       if (typeof record.points === "string") {
         console.log(
-          `Existing points found for ${record.student_id}! Importing...`,
+          `Existing points found for ${record.student_id}! Importing...`
         );
 
         const pointAction = await database.addPointsToStudent(
           record.student_id,
           record.points,
-          "Import",
+          "Import"
         );
 
         if (!pointAction.ok) {
           console.error(
-            "An error occuring during the import of a students existing points!",
+            "An error occuring during the import of a students existing points!"
           );
           console.error(pointAction);
           addFailStudentList.push(record);
@@ -92,7 +91,7 @@ module.exports = async function importer(fileName) {
     // Especially since we now have a full list of all students we have modified,
     // Even the ones we wanted to add, but failed to do so
     let modifiedStudentList = addedStudentList.concat(
-      repeatStudentList.concat(addFailStudentList),
+      repeatStudentList.concat(addFailStudentList)
     );
 
     let allStudents = await database.getAllStudentIDs();
@@ -108,7 +107,7 @@ module.exports = async function importer(fileName) {
         // in the list of students that were on our import in some way.
         // So we assume they should be disabled.
         let disable = await database.disableStudentByID(
-          allStudents.content[i].student_id,
+          allStudents.content[i].student_id
         );
 
         if (!disable.ok) {
@@ -117,14 +116,16 @@ module.exports = async function importer(fileName) {
         }
 
         console.log(
-          `Disabled: '${allStudents.content[i].student_id}' since they did not appear in the import.`,
+          `Disabled: '${allStudents.content[i].student_id}' since they did not appear in the import.`
         );
       }
     }
   } else {
     console.error(`File: '${fileName}' not found!`);
     console.error("Will attempt to find file not assuming locality");
-    console.error(`Below is the known contents of: '${path.dirname(fileName)}'`);
+    console.error(
+      `Below is the known contents of: '${path.dirname(fileName)}'`
+    );
     console.error(fs.readdirSync(path.dirname(fileName)));
   }
 };

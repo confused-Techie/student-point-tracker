@@ -1,8 +1,7 @@
 const POINT_COUNT = 1;
 const POINT_REASON = "Daily Bonus";
 
-module.exports =
-async function main(context) {
+module.exports = async function main(context) {
   const todaysDate = new Date().toISOString(); // Using ISO string so it's format works with Postgresql
   const allStudents = await context.database.getAllStudentIDs();
 
@@ -15,7 +14,10 @@ async function main(context) {
   // as long as we ensure to run  the attendance based task first, we can just check history
   for (let i = 0; i < allStudents.content.length; i++) {
     // get student history
-    const studentHistory = await context.database.getPointsByStudentIDByDate(allStudents.content[i].student_id, todaysDate);
+    const studentHistory = await context.database.getPointsByStudentIDByDate(
+      allStudents.content[i].student_id,
+      todaysDate
+    );
 
     if (!studentHistory.ok) {
       console.error(`Failed to get previous point history for student!`);
@@ -34,10 +36,16 @@ async function main(context) {
     }
 
     if (!didHaveAbsence) {
-      const addPoints = await context.database.addPointsToStudent(allStudents.content[i].student_id, POINT_COUNT, POINT_REASON);
+      const addPoints = await context.database.addPointsToStudent(
+        allStudents.content[i].student_id,
+        POINT_COUNT,
+        POINT_REASON
+      );
 
       if (!addPoints.ok) {
-        console.error(`Failed to add points to ${allStudents.content[i].student_id}! Will keep trying others...`);
+        console.error(
+          `Failed to add points to ${allStudents.content[i].student_id}! Will keep trying others...`
+        );
         console.error(addPoints);
         // don't throw to keep trying
       }
@@ -47,4 +55,4 @@ async function main(context) {
   // After all attempts for now just return `0` but we could probably conditionally do this
   console.log("Done adding the daily bonus of points.");
   return 0;
-}
+};

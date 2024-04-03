@@ -1,7 +1,6 @@
 module.exports = {
   safe: false,
   exec: async (sql) => {
-
     const command = await sql`
       SELECT *
       FROM students
@@ -15,6 +14,5 @@ module.exports = {
           content: `no students found.`,
           short: "not_found",
         };
-
-  }
+  },
 };

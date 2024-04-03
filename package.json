@@ -13,7 +13,8 @@
     "less:watch": "nodemon ./scripts/setup_assets.js",
     "lint": "prettier --check -u -w . ",
     "postinstall_disable": "node ./scripts/setup_assets.js",
-    "build": "pkg ./package.json"
+    "build": "pkg ./package.json",
+    "prettify": "prettier -w ."
   },
   "bin": {
     "start": "./bin/student-point-tracker.js"

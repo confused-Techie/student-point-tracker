@@ -2,12 +2,12 @@ module.exports = {
   safe: false,
   exec: async (sql, id, date) => {
     /**
-      * It is mandatory that the dates provided to this function are exactly as follows:
-      * 'YYYY-MM-DDTHH:mm:ss.sssZ'
-      * A format losely based off ISO8601
-      * And what you are provided using JavaScript: 'new Date().toISOString()'
-      * Any other format WILL NOT WORK.
-      */
+     * It is mandatory that the dates provided to this function are exactly as follows:
+     * 'YYYY-MM-DDTHH:mm:ss.sssZ'
+     * A format losely based off ISO8601
+     * And what you are provided using JavaScript: 'new Date().toISOString()'
+     * Any other format WILL NOT WORK.
+     */
     const command = await sql`
       SELECT *
       FROM points
@@ -22,5 +22,5 @@ module.exports = {
           content: `Student ${id} not found. Or points not found.`,
           short: "not_found",
         };
-  }
+  },
 };

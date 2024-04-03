@@ -1,4 +1,3 @@
-
 // Add custom expect methods
 expect.extend({
   // `expect().toBeArray()`
@@ -11,7 +10,8 @@ expect.extend({
     } else {
       return {
         pass: false,
-        message: () => `Expected Array but received: ${this.utils.printReceived(value)}`,
+        message: () =>
+          `Expected Array but received: ${this.utils.printReceived(value)}`,
       };
     }
   },
@@ -34,13 +34,13 @@ expect.extend({
     if (Array.isArray(want) && want.includes(actual)) {
       return {
         pass: true,
-        message: () => ""
+        message: () => "",
       };
     } else {
       return {
         pass: false,
-        message: () => `Expected ${want} to include ${actual}`
+        message: () => `Expected ${want} to include ${actual}`,
       };
     }
-  }
+  },
 });

@@ -9,7 +9,7 @@ module.exports = {
   projects: [
     {
       displayName: "Unit",
-      setupFilesAfterEnv: [ "<rootDir>/test/helpers/expect_setup.js" ],
+      setupFilesAfterEnv: ["<rootDir>/test/helpers/expect_setup.js"],
       testMatch: ["<rootDir>/test/unit/*.test.js"],
     },
     {
@@ -20,9 +20,12 @@ module.exports = {
       setupFilesAfterEnv: [
         "<rootDir>/test/helpers/db_setup.js",
         "<rootDir>/test/helpers/global_setup.js",
-        "<rootDir>/test/helpers/expect_setup.js"
+        "<rootDir>/test/helpers/expect_setup.js",
       ],
-      testMatch: ["<rootDir>/test/http/*.test.js", "<rootDir>/test/database/*.test.js"],
+      testMatch: [
+        "<rootDir>/test/http/*.test.js",
+        "<rootDir>/test/database/*.test.js",
+      ],
     },
   ],
 };

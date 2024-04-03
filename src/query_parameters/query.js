@@ -14,6 +14,8 @@ module.exports = {
 
     // Check for any possible path traversal and return empty if present
     // Also trim strings to maxLength
-    return utils.pathTraversalAttempt(prov) ? "" : prov.slice(0, maxLength).trim();
-  }
+    return utils.pathTraversalAttempt(prov)
+      ? ""
+      : prov.slice(0, maxLength).trim();
+  },
 };

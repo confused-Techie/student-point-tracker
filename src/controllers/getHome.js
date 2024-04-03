@@ -30,7 +30,7 @@ module.exports = {
     ) {
       let studentId = params.user.email.replace(
         `@${context.config.DOMAIN}`,
-        "",
+        ""
       );
 
       const studentExists = context.database.getStudentByID(studentId);
@@ -74,7 +74,7 @@ module.exports = {
       },
       {
         views: [path.resolve("./views")],
-      },
+      }
     );
     console.log(req.user);
 

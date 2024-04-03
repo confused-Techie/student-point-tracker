@@ -73,7 +73,7 @@ module.exports = {
         },
         {
           views: [path.resolve("./views")],
-        },
+        }
       );
 
       res.set("Content-Type", "text/html");
@@ -114,7 +114,7 @@ module.exports = {
       },
       {
         views: [path.resolve("./views")],
-      },
+      }
     );
 
     res.set("Content-Type", "text/html");

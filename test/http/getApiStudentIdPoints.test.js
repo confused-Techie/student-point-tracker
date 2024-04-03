@@ -3,14 +3,12 @@ const context = require("../../src/context.js");
 const db = require("../../src/database/_export.js");
 
 describe("if student doesn't exist", () => {
-
   test("returns not found", async () => {
     const sso = await endpoint.logic({ id: "1" }, context);
 
     expect(sso.ok).toBe(false);
     expect(sso.content.short).toBe("not_found");
   });
-
 });
 
 describe("if student does exist", () => {
@@ -20,7 +18,7 @@ describe("if student does exist", () => {
     let add = await db.addStudent({
       student_id: sID,
       first_name: "John",
-      last_name: "Doe"
+      last_name: "Doe",
     });
 
     expect(add.ok).toBe(true);
@@ -54,5 +52,4 @@ describe("if student does exist", () => {
     expect(sso.content[0].points_after).toBe("5");
     expect(sso.content[0].reason).toBe("Test");
   });
-
 });

@@ -20,7 +20,7 @@ module.exports = class SSOPaginate extends SSO {
       if (param === "query") {
         // Since we know we want to keep search queries safe strings
         const safeQuery = encodeURIComponent(
-          params[param].replace(/[<>"':;\\/]+/g, ""),
+          params[param].replace(/[<>"':;\\/]+/g, "")
         );
         paramString += `&${param}=${safeQuery}`;
       } else {

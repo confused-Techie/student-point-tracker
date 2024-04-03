@@ -4,17 +4,10 @@
 
 const exportObj = {
   query: {},
-  schema: {}
+  schema: {},
 };
 
-const keys = [
-  "id",
-  "page",
-  "points",
-  "query",
-  "reason",
-  "user"
-];
+const keys = ["id", "page", "points", "query", "reason", "user"];
 
 for (const key of keys) {
   let tmp = require(`./${key}.js`);

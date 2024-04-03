@@ -6,7 +6,7 @@ function httpLog(req, res) {
       req.method ?? "NO_METHOD"
     } ${sanitizeLogs(req.url) ?? "NO_URL"} ${req.protocol ?? "NO_PROT"}" ${
       res.statusCode ?? "NO_STATUS"
-    } ${duration}ms`,
+    } ${duration}ms`
   );
 }
 

@@ -14,5 +14,5 @@ module.exports = {
       default:
         return def;
     }
-  }
+  },
 };

@@ -1,5 +1,5 @@
 # Prettier Config
-singleQote: false
+singleQuote: false
 trailingComma: "es5"
 bracketSpacing: true
 arrowParens: "always"

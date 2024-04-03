@@ -42,7 +42,7 @@ app.use(
       path: path.join(context.config.RESOURCE_PATH, "sessions"),
       ttl: context.config.SESSION_FILE_STORE_TTL,
     }),
-  }),
+  })
 );
 
 app.use(passport.authenticate("session"));
@@ -92,11 +92,11 @@ passport.use(
       } else {
         console.error(profile);
         return cb(
-          `Bad email domain attempted to be used during login! '${profiles.emails[0].value}'`,
+          `Bad email domain attempted to be used during login! '${profiles.emails[0].value}'`
         );
       }
-    },
-  ),
+    }
+  )
 );
 
 // Compression of text based resources setup
@@ -109,7 +109,7 @@ app.get(
   passport.authenticate("google", {
     successRedirect: "/",
     failureRedirect: "/requestLogin",
-  }),
+  })
 );
 
 const endpointHandler = async function (node, req, res) {
@@ -212,7 +212,7 @@ for (const node of endpoints) {
       default:
         context.logger.generic(
           `Unsupported method: ${node.endpoint.method} for ${path}`,
-          "warn",
+          "warn"
         );
     }
   }
@@ -224,14 +224,14 @@ app.use(async (err, req, res, next) => {
   if (err) {
     context.logger.generic(
       `An error was encountered handling the request: ${err.toString()}`,
-      "error",
+      "error"
     );
     const sso = new context.sso();
     return sso
       .notOk()
       .addShort("server_error")
       .addContent(
-        `An error was encountered handling the request: ${err.toString()}`,
+        `An error was encountered handling the request: ${err.toString()}`
       );
     return;
   }

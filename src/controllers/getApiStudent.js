@@ -24,7 +24,7 @@ module.exports = {
   async logic(params, context) {
     let search = await context.database.searchStudent(
       params.query,
-      params.page,
+      params.page
     );
 
     if (!search.ok) {
@@ -45,7 +45,7 @@ module.exports = {
     sso.buildLink(
       `${context.config.SERVER_URL}/api/student`,
       search.pagination.page,
-      params,
+      params
     );
 
     return sso.isOk().addContent(searchResults);

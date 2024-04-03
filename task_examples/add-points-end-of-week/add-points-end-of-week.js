@@ -16,7 +16,7 @@ module.exports = async function main(context) {
   for (let i = 0; i < allStudents.content.length; i++) {
     const studentHistory = await context.database.getPointsByStudentIDByDate(
       allStudents.content[i].student_id,
-      lastWeekDate,
+      lastWeekDate
     );
 
     if (!studentHistory.ok) {
@@ -35,12 +35,12 @@ module.exports = async function main(context) {
     const addPoints = await context.database.addPointsToStudent(
       allStudents.content[i].student_id,
       POINT_COUNT,
-      POINT_REASON,
+      POINT_REASON
     );
 
     if (!addPoints.ok) {
       console.error(
-        `Failed to add points to ${allStudents.content[i].student_id}! Will keep trying the others`,
+        `Failed to add points to ${allStudents.content[i].student_id}! Will keep trying the others`
       );
       console.error(addPoints);
     }

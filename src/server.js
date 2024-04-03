@@ -64,12 +64,12 @@ async function checkDBConnectivity(db) {
     while (true) {
       try {
         console.log(
-          `Initiated initial DB Connection Attempt ${attempt + 1}/${retries}...`,
+          `Initiated initial DB Connection Attempt ${attempt + 1}/${retries}...`
         );
         return await fn();
       } catch (err) {
         console.log(
-          `Attempt ${attempt + 1}/${retries} failed. Retrying in ${delayMs}...`,
+          `Attempt ${attempt + 1}/${retries} failed. Retrying in ${delayMs}...`
         );
 
         if (attempt++ < retries) {
@@ -102,7 +102,7 @@ async function checkDBConnectivity(db) {
       return;
     },
     config.STARTUP_DB_CONNECT_RETRY_COUNT,
-    config.STARTUP_DB_CONNECT_RETRY_TIME_MS,
+    config.STARTUP_DB_CONNECT_RETRY_TIME_MS
   );
 }
 

@@ -10,7 +10,7 @@ const logger = require("../logger.js");
 let sqlStorage;
 
 function getSqlStorageObject() {
-  return sqlStorage ??= setupSQL();
+  return (sqlStorage ??= setupSQL());
 }
 
 function setSqlStorageObject(setter) {
@@ -49,14 +49,14 @@ function wrapper(modToUse) {
     // Wrapp all function calls in a try catch with a singular error handler
     try {
       return await modToUse.exec(getSqlStorageObject(), ...args);
-    } catch(err) {
+    } catch (err) {
       console.error(`SQL command error: ${err.toString()}`);
       console.error(`Args: ${args}`);
-      
+
       return {
         ok: false,
         content: err,
-        short: "server_error"
+        short: "server_error",
       };
     }
   };
@@ -66,7 +66,7 @@ const exportObj = {
   shutdownSQL: shutdownSQL,
   setupSQL: setupSQL,
   setSqlStorageObject: setSqlStorageObject,
-  getSqlStorageObject: getSqlStorageObject
+  getSqlStorageObject: getSqlStorageObject,
 };
 
 // Add all other modules here:
@@ -84,7 +84,7 @@ const keys = [
   "getStudentByID",
   "removePointsFromStudent",
   "removeStudentByID",
-  "searchStudent"
+  "searchStudent",
 ];
 
 for (const key of keys) {

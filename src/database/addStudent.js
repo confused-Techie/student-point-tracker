@@ -10,5 +10,5 @@ module.exports = {
     return command.count !== 0
       ? { ok: true, content: command[0] }
       : { ok: false, content: command, short: "server_error" };
-  }
+  },
 };

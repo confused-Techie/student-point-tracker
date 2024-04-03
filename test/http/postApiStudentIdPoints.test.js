@@ -3,10 +3,11 @@ const context = require("../../src/context.js");
 const db = require("../../src/database/_export.js");
 
 describe("if student doesn't exist", () => {
-
   test("returns unauthorized when user is not admin", async () => {
     let localContext = context;
-    localContext.auth.isAdmin = () => { return { ok: false, short: "unauthorized" } };
+    localContext.auth.isAdmin = () => {
+      return { ok: false, short: "unauthorized" };
+    };
 
     const sso = await endpoint.logic({ id: "1" }, localContext);
 
@@ -16,7 +17,9 @@ describe("if student doesn't exist", () => {
 
   test("returns not found when user is admin", async () => {
     let localContext = context;
-    localContext.auth.isAdmin = () => { return { ok: true } };
+    localContext.auth.isAdmin = () => {
+      return { ok: true };
+    };
 
     const sso = await endpoint.logic({ id: "1" }, localContext);
 
@@ -32,7 +35,7 @@ describe("if the student does exist", () => {
     let add = await db.addStudent({
       student_id: sID,
       first_name: "John",
-      last_name: "Doe"
+      last_name: "Doe",
     });
 
     expect(add.ok).toBe(true);
@@ -46,7 +49,9 @@ describe("if the student does exist", () => {
 
   test("returns unauthorized when user is not admin", async () => {
     let localContext = context;
-    localContext.auth.isAdmin = () => { return { ok: false, short: "unauthorized" } };
+    localContext.auth.isAdmin = () => {
+      return { ok: false, short: "unauthorized" };
+    };
 
     const sso = await endpoint.logic({ id: sID }, localContext);
 
@@ -56,9 +61,14 @@ describe("if the student does exist", () => {
 
   test("adds points to student when user is admin", async () => {
     let localContext = context;
-    localContext.auth.isAdmin = () => { return { ok: true } };
+    localContext.auth.isAdmin = () => {
+      return { ok: true };
+    };
 
-    const sso = await endpoint.logic({ id: sID, points: 10, reason: "Test" }, context);
+    const sso = await endpoint.logic(
+      { id: sID, points: 10, reason: "Test" },
+      context
+    );
 
     expect(sso.ok).toBe(true);
 

@@ -12,7 +12,10 @@ module.exports = function getPresets() {
       return defaultData;
     }
 
-    let fileContent = fs.readFileSync(path.join(config.RESOURCE_PATH, "point_presets.yaml"), "utf8");
+    let fileContent = fs.readFileSync(
+      path.join(config.RESOURCE_PATH, "point_presets.yaml"),
+      "utf8"
+    );
 
     data = yaml.load(fileContent);
   } catch (err) {

@@ -2,10 +2,10 @@ let bulkStudentIds = { add: {}, remove: {} };
 
 window.addEventListener("load", () => {
   bulkStudentIds.add.points = new mdc.textField.MDCTextField(
-    document.getElementById("bulk-student-ids-add-points"),
+    document.getElementById("bulk-student-ids-add-points")
   );
   bulkStudentIds.remove.points = new mdc.textField.MDCTextField(
-    document.getElementById("bulk-student-ids-remove-points"),
+    document.getElementById("bulk-student-ids-remove-points")
   );
 
   const searchText = document.getElementById("search-text-field");

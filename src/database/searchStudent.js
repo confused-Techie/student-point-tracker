@@ -3,7 +3,6 @@ const config = require("../config.js")();
 module.exports = {
   safe: false,
   exec: async (sql, query, page) => {
-
     const limit = config.PAGINATION_LIMIT;
     const offset = page > 1 ? (page - 1) * limit : 0;
 
@@ -39,6 +38,5 @@ module.exports = {
         limit: limit,
       },
     };
-
-  }
+  },
 };

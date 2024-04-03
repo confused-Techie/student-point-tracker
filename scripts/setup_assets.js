@@ -9,16 +9,14 @@ const assets = require("../package.json").assets;
 const config = require("../src/config.js")();
 
 const TERSER_OPTS = {
-  sourceMap: true
+  sourceMap: true,
 };
 
 const CLEANCSS_OPTS = {
-  sourceMap: true
+  sourceMap: true,
 };
 
-const LESS_OPTS = {
-
-};
+const LESS_OPTS = {};
 
 async function mini(filePath, outPath) {
   if (!fs.existsSync(filePath)) {
@@ -30,7 +28,6 @@ async function mini(filePath, outPath) {
   const filePathParts = path.parse(filePath);
 
   if (filePathParts.ext === ".js") {
-
     const result = await minify(code, TERSER_OPTS);
 
     // now to write to disk
@@ -40,11 +37,13 @@ async function mini(filePath, outPath) {
     // Add the source map key to the bottom of the minified JS file
     result.code += `\n//# sourceMappingURL=${config.SERVER_URL}/${mapName}`;
 
-    fs.writeFileSync(path.join(outPath, minName), result.code, { encoding: "utf8" });
-    fs.writeFileSync(path.join(outPath, mapName), result.map, { encoding: "utf8" });
-
+    fs.writeFileSync(path.join(outPath, minName), result.code, {
+      encoding: "utf8",
+    });
+    fs.writeFileSync(path.join(outPath, mapName), result.map, {
+      encoding: "utf8",
+    });
   } else if (filePathParts.ext === ".css") {
-
     const result = new CleanCSS(CLEANCSS_OPTS).minify(code);
 
     let minName = `${filePathParts.name}.min.css`;
@@ -57,11 +56,13 @@ async function mini(filePath, outPath) {
 
     let sourceMap = result.sourceMap.toString();
 
-    fs.writeFileSync(path.join(outPath, minName), result.styles, { encoding: "utf8" });
-    fs.writeFileSync(path.join(outPath, mapName), sourceMap, { encoding: "utf8" });
-
+    fs.writeFileSync(path.join(outPath, minName), result.styles, {
+      encoding: "utf8",
+    });
+    fs.writeFileSync(path.join(outPath, mapName), sourceMap, {
+      encoding: "utf8",
+    });
   } else if (filePathParts.ext === ".less") {
-
     const result = await less.render(code, LESS_OPTS);
 
     let newName = `${filePathParts.name}.css`;
@@ -72,7 +73,6 @@ async function mini(filePath, outPath) {
 
     // Then because we don't want just the CSS, we need to manually call for the CSS file
     await mini(newPath, outPath);
-
   } else {
     console.warn(`Unable to support: '${filePath}' extension!`);
     return;

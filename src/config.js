@@ -18,7 +18,7 @@ function getConfigFile() {
   } catch (err) {
     if (process.env.PROD_STATUS === "dev") {
       console.error(
-        `Failed to load app.yaml in non-production env! ${err.toString()}`,
+        `Failed to load app.yaml in non-production env! ${err.toString()}`
       );
       data = {};
 
@@ -66,7 +66,7 @@ function getConfig() {
     REQUIRE_LOGIN: findValue("REQUIRE_LOGIN", true),
     REPORT_A_PROBLEM_URL: findValue(
       "REPORT_A_PROBLEM_URL",
-      "https://github.com/confused-Techie/student-point-tracker/issues",
+      "https://github.com/confused-Techie/student-point-tracker/issues"
     ),
     LOCALE: findValue("LOCALE", "en-US"),
     REDIRECT_STUDENTS: findValue("REDIRECT_STUDENTS", false),
@@ -74,11 +74,11 @@ function getConfig() {
     FOOTER_ITEM_LINK: findValue("FOOTER_ITEM_LINK", false),
     STARTUP_DB_CONNECT_RETRY_COUNT: findValue(
       "STARTUP_DB_CONNECT_RETRY_COUNT",
-      10,
+      10
     ),
     STARTUP_DB_CONNECT_RETRY_TIME_MS: findValue(
       "STARTUP_DB_CONNECT_RETRY_TIME_MS",
-      1000,
+      1000
     ),
     RESOURCE_PATH: findResourcePath(),
     COLUMNS: findValue("COLUMNS", true),

@@ -2,38 +2,38 @@ const points = { add: {}, remove: {} };
 
 window.addEventListener("load", () => {
   points.add.dialog = new mdc.dialog.MDCDialog(
-    document.getElementById("add-points-dialog"),
+    document.getElementById("add-points-dialog")
   );
   points.remove.dialog = new mdc.dialog.MDCDialog(
-    document.getElementById("remove-points-dialog"),
+    document.getElementById("remove-points-dialog")
   );
 
   points.add.reason = new mdc.textField.MDCTextField(
-    document.getElementById("add-points-reason"),
+    document.getElementById("add-points-reason")
   );
   points.remove.reason = new mdc.textField.MDCTextField(
-    document.getElementById("remove-points-reason"),
+    document.getElementById("remove-points-reason")
   );
 
   points.add.menu = new mdc.menu.MDCMenu(
-    document.getElementById("add-points-menu"),
+    document.getElementById("add-points-menu")
   );
   points.remove.menu = new mdc.menu.MDCMenu(
-    document.getElementById("remove-points-menu"),
+    document.getElementById("remove-points-menu")
   );
 
   points.add.chipset = new mdc.chips.MDCChipSet(
-    document.getElementById("add-points-chip-set"),
+    document.getElementById("add-points-chip-set")
   );
   points.remove.chipset = new mdc.chips.MDCChipSet(
-    document.getElementById("remove-points-chip-set"),
+    document.getElementById("remove-points-chip-set")
   );
 
   points.add.count = new mdc.textField.MDCTextField(
-    document.getElementById("add-points-count"),
+    document.getElementById("add-points-count")
   );
   points.remove.count = new mdc.textField.MDCTextField(
-    document.getElementById("remove-points-count"),
+    document.getElementById("remove-points-count")
   );
 
   points.add.dialog.listen("MDCDialog:opened", () => {
@@ -53,7 +53,7 @@ window.addEventListener("load", () => {
       // The user has accepted the prompt
       let points = document.getElementById("add-points-count-text-field").value;
       let reason = document.getElementById(
-        "add-points-reason-text-field",
+        "add-points-reason-text-field"
       ).value;
 
       await addPoints(points, reason);
@@ -64,10 +64,10 @@ window.addEventListener("load", () => {
     if (action.detail.action === "accept") {
       // The user has accepted the prompt
       let points = document.getElementById(
-        "remove-points-count-text-field",
+        "remove-points-count-text-field"
       ).value;
       let reason = document.getElementById(
-        "remove-points-reason-text-field",
+        "remove-points-reason-text-field"
       ).value;
 
       await removePoints(points, reason);
@@ -89,7 +89,7 @@ async function addPoints(points, reason) {
   const makeAddPointsRequest = async (idReq, pointsReq, reasonReq, notify) => {
     const response = await fetch(
       `/api/student/${idReq}/points?points=${pointsReq}&reason=${reasonReq}`,
-      { method: "POST" },
+      { method: "POST" }
     );
 
     if (response.status !== 201) {
@@ -100,7 +100,7 @@ async function addPoints(points, reason) {
 
     if (notify) {
       generateSuccessSnackbar(
-        `Successfully added '${pointsReq}' Points to Student ${idReq}.`,
+        `Successfully added '${pointsReq}' Points to Student ${idReq}.`
       );
     }
     return { ok: true, content: null };
@@ -108,7 +108,7 @@ async function addPoints(points, reason) {
 
   if (document.getElementById("bulk-student-ids-add-text-field")) {
     let student_ids = getBulkIds(
-      document.getElementById("bulk-student-ids-add-text-field").value,
+      document.getElementById("bulk-student-ids-add-text-field").value
     );
 
     let didFail = false;
@@ -117,7 +117,7 @@ async function addPoints(points, reason) {
         student_ids[i],
         points,
         reason,
-        false,
+        false
       );
 
       if (!req.ok) {
@@ -128,7 +128,7 @@ async function addPoints(points, reason) {
 
     if (!didFail) {
       generateSuccessSnackbar(
-        `Successfully added '${points}' Points to ${student_ids.length} Students`,
+        `Successfully added '${points}' Points to ${student_ids.length} Students`
       );
     }
   } else {
@@ -142,11 +142,11 @@ async function removePoints(points, reason) {
     idReq,
     pointsReq,
     reasonReq,
-    notify,
+    notify
   ) => {
     const response = await fetch(
       `/api/student/${idReq}/points?points=${pointsReq}&reason=${reasonReq}`,
-      { method: "DELETE" },
+      { method: "DELETE" }
     );
 
     if (response.status !== 204) {
@@ -157,7 +157,7 @@ async function removePoints(points, reason) {
 
     if (notify) {
       generateSuccessSnackbar(
-        `Successfully removed '${points}' Points from Student ${student_id}.`,
+        `Successfully removed '${points}' Points from Student ${student_id}.`
       );
     }
     return { ok: true, content: null };
@@ -165,7 +165,7 @@ async function removePoints(points, reason) {
 
   if (document.getElementById("bulk-student-ids-remove-text-field")) {
     let student_ids = getBulkIds(
-      document.getElementById("bulk-student-ids-remove-text-field").value,
+      document.getElementById("bulk-student-ids-remove-text-field").value
     );
 
     let didFail = false;
@@ -174,7 +174,7 @@ async function removePoints(points, reason) {
         student_ids[i],
         points,
         reason,
-        false,
+        false
       );
 
       if (!req.ok) {
@@ -185,7 +185,7 @@ async function removePoints(points, reason) {
 
     if (!didFail) {
       generateSuccessSnackbar(
-        `Successfully added '${points}' Points to ${student_ids.length} Students`,
+        `Successfully added '${points}' Points to ${student_ids.length} Students`
       );
     }
   } else {
@@ -235,7 +235,7 @@ function generateSuccessSnackbar(msg) {
   `;
 
   const snackbar = new mdc.snackbar.MDCSnackbar(
-    document.querySelector(".mdc-snackbar"),
+    document.querySelector(".mdc-snackbar")
   );
 
   snackbar.open();

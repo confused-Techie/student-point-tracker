@@ -30,7 +30,7 @@ async function init() {
           task.schedule,
           async function (task) {
             await executeTask(task);
-          }.bind(null, task),
+          }.bind(null, task)
         );
       }
     }
@@ -42,7 +42,7 @@ async function executeTask(task) {
     runtime: new Date().toISOString(),
     exit_code: null,
     exit_details: null,
-    task_details: task
+    task_details: task,
   };
 
   if (!validateTask(task)) {
@@ -62,12 +62,14 @@ async function executeTask(task) {
       await importer(task.file);
 
       taskRunStatus.exit_code = 0;
-      taskRunStatus.exit_details = "Kicked off 'importer' task."
+      taskRunStatus.exit_details = "Kicked off 'importer' task.";
       break;
     }
     case "jsScript": {
       try {
-        const customScript = require(path.resolve(`${config.RESOURCE_PATH}/${task.file}`));
+        const customScript = require(
+          path.resolve(`${config.RESOURCE_PATH}/${task.file}`)
+        );
         let ret = await customScript(require("./context.js"));
 
         taskRunStatus.exit_code = ret;

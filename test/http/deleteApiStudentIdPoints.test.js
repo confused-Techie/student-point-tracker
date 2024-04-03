@@ -5,7 +5,9 @@ const db = require("../../src/database/_export.js");
 describe("behaves correctly", () => {
   test("Returns unauthorized if unable to login", async () => {
     let localContext = context;
-    localContext.auth.isAdmin = () => { return { ok: false, short: "unauthorized" } };
+    localContext.auth.isAdmin = () => {
+      return { ok: false, short: "unauthorized" };
+    };
 
     const sso = await endpoint.logic({ id: "1" }, localContext);
 
@@ -15,7 +17,9 @@ describe("behaves correctly", () => {
 
   test("Returns not found if student doesn't exist", async () => {
     let localContext = context;
-    localContext.auth.isAdmin = () => { return { ok: true } };
+    localContext.auth.isAdmin = () => {
+      return { ok: true };
+    };
     const sso = await endpoint.logic({ id: "1" }, localContext);
 
     expect(sso.ok).toBe(false);
@@ -28,17 +32,22 @@ describe("behaves correctly", () => {
     await db.addStudent({
       student_id: sID,
       first_name: "John",
-      last_name: "Doe"
+      last_name: "Doe",
     });
 
     let localContext = context;
-    localContext.auth.isAdmin = () => { return { ok: true } };
+    localContext.auth.isAdmin = () => {
+      return { ok: true };
+    };
 
-    const sso = await endpoint.logic({
-      id: sID,
-      points: 10,
-      reason: "Test"
-    }, localContext);
+    const sso = await endpoint.logic(
+      {
+        id: sID,
+        points: 10,
+        reason: "Test",
+      },
+      localContext
+    );
 
     expect(sso.ok).toBe(true);
 
@@ -57,19 +66,24 @@ describe("behaves correctly", () => {
     await db.addStudent({
       student_id: sID,
       first_name: "John",
-      last_name: "Doe"
+      last_name: "Doe",
     });
 
     await db.addPointsToStudent(sID, 5, "Test");
 
     let localContext = context;
-    localContext.auth.isAdmin = () => { return { ok: true } };
+    localContext.auth.isAdmin = () => {
+      return { ok: true };
+    };
 
-    const sso = await endpoint.logic({
-      id: sID,
-      points: 10,
-      reason: "Test"
-    }, localContext);
+    const sso = await endpoint.logic(
+      {
+        id: sID,
+        points: 10,
+        reason: "Test",
+      },
+      localContext
+    );
 
     expect(sso.ok).toBe(true);
 
@@ -88,19 +102,24 @@ describe("behaves correctly", () => {
     await db.addStudent({
       student_id: sID,
       first_name: "John",
-      last_name: "Doe"
+      last_name: "Doe",
     });
 
     await db.addPointsToStudent(sID, 20, "Test");
 
     let localContext = context;
-    localContext.auth.isAdmin = () => { return { ok: true } };
+    localContext.auth.isAdmin = () => {
+      return { ok: true };
+    };
 
-    const sso = await endpoint.logic({
-      id: sID,
-      points: 10,
-      reason: "Test"
-    }, localContext);
+    const sso = await endpoint.logic(
+      {
+        id: sID,
+        points: 10,
+        reason: "Test",
+      },
+      localContext
+    );
 
     expect(sso.ok).toBe(true);
 

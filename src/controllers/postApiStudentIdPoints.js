@@ -39,7 +39,7 @@ module.exports = {
     let action = await context.database.addPointsToStudent(
       params.id,
       params.points,
-      params.reason,
+      params.reason
     );
 
     if (!action.ok) {

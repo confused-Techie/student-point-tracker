@@ -7,6 +7,8 @@ module.exports = {
     const maxLength = 256;
     const prov = req.query.reason;
 
-    return utils.pathTraversalAttempt(prov) ? "" : prov.slice(0, maxLength).trim();
-  }
-}
+    return utils.pathTraversalAttempt(prov)
+      ? ""
+      : prov.slice(0, maxLength).trim();
+  },
+};

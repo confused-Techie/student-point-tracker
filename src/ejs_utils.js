@@ -8,7 +8,7 @@ function findAssetPath(assetName) {
   if (!MINIFY) {
     return `/${assetName}`;
   }
-  
+
   const assetNameParts = path.parse(assetName);
 
   // Then we know that all of our assets are available at the root of the webserver
@@ -25,5 +25,5 @@ function findAssetPath(assetName) {
 }
 
 module.exports = {
-  findAssetPath
+  findAssetPath,
 };

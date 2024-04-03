@@ -1,7 +1,6 @@
 module.exports = {
   safe: false,
   exec: async (sql, id) => {
-
     return await sql
       .begin(async (sqlTrans) => {
         const removePoints = await sqlTrans`
@@ -39,6 +38,5 @@ module.exports = {
               error: err,
             };
       });
-
-  }
+  },
 };

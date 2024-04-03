@@ -8,7 +8,7 @@ describe("returns correct info", () => {
       {
         id: "1",
       },
-      context,
+      context
     );
 
     expect(sso.ok).toBe(false);
@@ -28,7 +28,7 @@ describe("returns correct info", () => {
       {
         id: sID,
       },
-      context,
+      context
     );
 
     expect(sso.ok).toBe(true);
