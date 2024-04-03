@@ -52,6 +52,7 @@ module.exports = async function main(context) {
 };
 
 async function removePoints(studentID, context, shortReason) {
+  console.log(`Attempting to remove '${studentID}s' points due to: '${shortReason}'`);
   const act = await context.database.removePointsFromStudent(
     studentID,
     POINT_COUNT,

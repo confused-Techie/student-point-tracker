@@ -3,7 +3,8 @@ const POINT_REASON = "Weekly Attendance Bonus";
 
 module.exports = async function main(context) {
   let tmpDate = new Date();
-  const lastWeekDate = tmpDate.setDate(tmpDate.getDate() - 7);
+  let tmpPastDate = tmpDate.setDate(tmpDate.getDate() - 7); // Minus 7 DAYS
+  const lastWeekDate = tmpPastDate.toISOString();
 
   const allStudents = await context.database.getAllStudentIDs();
 
@@ -19,7 +20,7 @@ module.exports = async function main(context) {
     );
 
     if (!studentHistory.ok) {
-      console.error("Failed to get previousn point history for student!");
+      console.error("Failed to get previous point history for student!");
       console.error(studentHistory);
       continue;
     }

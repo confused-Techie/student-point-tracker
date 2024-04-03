@@ -1,6 +1,6 @@
 TASKS:
   - name: "Add one point each day"
     # Runs 5PM Monday-Friday
-    schedule: "0 17 * * * 1-5"
+    schedule: "0 17 * * 1-5"
     action: jsScript
     file: "add-points-every-day.js"

@@ -1,6 +1,6 @@
 TASKS:
   - name: "Deduct Points based on Attendance"
     # Runs 6PM Monday-Friday
-    schedule: "0 18 * * * 1-5"
+    schedule: "0 18 * * 1-5"
     action: jsScript
     file: "deduct-attendance.js"
