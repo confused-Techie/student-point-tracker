@@ -22,7 +22,7 @@ module.exports = {
         "<rootDir>/test/helpers/global_setup.js",
         "<rootDir>/test/helpers/expect_setup.js"
       ],
-      testMatch: ["<rootDir>/test/http/*.test.js"],
+      testMatch: ["<rootDir>/test/http/*.test.js", "<rootDir>/test/database/*.test.js"],
     },
   ],
 };

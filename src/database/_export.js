@@ -48,12 +48,11 @@ function wrapper(modToUse) {
   return async (...args) => {
     // Wrapp all function calls in a try catch with a singular error handler
     try {
-      // Call the function passing the `sqlStorage` object and other provided params
-      return modToUse.exec(getSqlStorageObject(), ...args);
+      return await modToUse.exec(getSqlStorageObject(), ...args);
     } catch(err) {
       console.error(`SQL command error: ${err.toString()}`);
       console.error(`Args: ${args}`);
-      console.error(err);
+      
       return {
         ok: false,
         content: err,
