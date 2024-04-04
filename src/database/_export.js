@@ -18,22 +18,18 @@ function setSqlStorageObject(setter) {
 }
 
 function setupSQL() {
-  if (process.env.PROD_STATUS === "dev") {
-    return postgres({
-      host: config.DB_HOST,
-      username: config.DB_USER,
-      database: config.DB_DB,
-      port: config.DB_PORT,
-    });
-  } else {
-    return postgres({
-      host: config.DB_HOST,
-      username: config.DB_USER,
-      password: config.DB_PASS,
-      database: config.DB_DB,
-      port: config.DB_PORT,
-    });
+  const postgresOpts = {
+    host: config.DB_HOST,
+    username: config.DB_USER,
+    database: config.DB_DB,
+    port: config.DB_PORT
+  };
+
+  if (process.env.PROD_STATUS !== "dev") {
+    postgresOpts.password = config.DB_PASS;
   }
+
+  return postgres(postgresOpts);
 }
 
 async function shutdownSQL() {
@@ -46,7 +42,7 @@ async function shutdownSQL() {
 function wrapper(modToUse) {
   // Return this function passing all args based on what module we need to use
   return async (...args) => {
-    // Wrapp all function calls in a try catch with a singular error handler
+    // Wrap all function calls in a try catch with a singular error handler
     try {
       return await modToUse.exec(getSqlStorageObject(), ...args);
     } catch (err) {

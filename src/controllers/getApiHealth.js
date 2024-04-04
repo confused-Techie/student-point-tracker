@@ -27,7 +27,8 @@ module.exports = {
     }
 
     const sso = new context.sso();
-
+    sso.shouldLog = false;
+    // We don't want to log this endpoint to avoid flooding the logs with the repeated requests
     return sso.isOk().addContent(healthObj);
   },
 };

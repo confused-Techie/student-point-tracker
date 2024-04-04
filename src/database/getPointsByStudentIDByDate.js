@@ -3,7 +3,7 @@ module.exports = {
   exec: async (sql, id, date) => {
     /**
      * It is mandatory that the dates provided to this function are exactly as follows:
-     * 'YYYY-MM-DDTHH:mm:ss.sssZ'
+     * 'YYYY-MM-DDTHH:mi:ss.msZ'
      * A format losely based off ISO8601
      * And what you are provided using JavaScript: 'new Date().toISOString()'
      * Any other format WILL NOT WORK.

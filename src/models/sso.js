@@ -35,6 +35,7 @@ module.exports = class SSO {
     this.safeContent = false;
     this.successStatusCode = 200;
     this.calls = {};
+    this.shouldLog = true;
   }
 
   isOk() {
@@ -156,7 +157,9 @@ module.exports = class SSO {
     } else {
       res.status(this.successStatusCode).json(this.content);
     }
-    context.logger.httpLog(req, res);
+    if (this.shouldLog) {
+      context.logger.httpLog(req, res);
+    }
     return;
   }
 };
