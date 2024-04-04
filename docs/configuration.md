@@ -42,7 +42,7 @@ Either can be used to modify the following values:
 * `ADMINS`: An array of admin email addresses for the system.
 * `POINT_CHIPS`: An array of numerical point values, to define the different values of the "Quick Points". **No Default**
 * `TASKS`: An array of task objects, to define the different "Tasks". **No Default**
-* `COLUMNS`: A value for how to interprete the columns in the import CSV, as defined [here](https://csv.js.org/parse/options/columns/).
+* `COLUMNS`: A value for how to interprete the columns in the import CSV, as defined [here](https://csv.js.org/parse/options/columns/). **Default true**
 
 ## Environment Variables
 

@@ -21,7 +21,7 @@ After choosing your root folder of where to setup your installation, create the 
 * `sql/`: Will be where SQL specific data is saved, such as the initial migration which creates the database.
 * `app.yaml`: Will be the major configuration file of the entire program.
 
-## Docker-Compose
+### Docker-Compose
 
 The Docker-Compose file is what does all setup for this application, which includes setting up the application itself, as well as the PostgreSQL database it relies on.
 
@@ -74,12 +74,60 @@ When setting up the above file you'll want to pay special attention to the follo
   * `services.backend.ports`: This will be the port that the application is available on, on your Docker Host.
   * `services.backend.environment.PORT`: This port must match exactly with the port specified in the Docker Container's port (`services.backend.ports`). A quick example of a proper port configuration would be: `services.backend.environment.PORT: 8080` and `services.backed.ports: - 80:8080` this would mean that the application is available on the Docker **Container** via PORT `8080`, meanwhile the Docker Container's PORT `8080` is being mapped to the Docker **Hosts** port `80`.  
 
-## App.yaml
+### App.yaml
 
 The `app.yaml` is a very simple YAML configuration file for the application, that allows setting any value the system accepts.
 
 You may have noticed that any values here match some values set within the Docker-Composes `services.backend.environment`, this is by design, and either should work, but there are some [recommendations](./configuration.md).
 
-## Migration
+### Migration
 
 The Migration file (`0001-initial-migration.sql`) should be copied **exactly** from [`./migrations/0001-initial-migrations.sql`](../migrations/0001-initial-migrations.sql).
+
+## CLI
+
+It's also possible to run SPT via the CLI if preferred, even though this is not the recommended way.
+
+If running via the CLI a PostgreSQL database will have to be setup and maintained on it's own, and is not covered in this documentation.
+
+To do so, either of the options are valid:
+
+### As an NPM Package
+
+If the system that will run SPT already or is able to have NodeJS installed, then SPT can be installed just like any NPM Package.
+
+To install run:
+
+```
+npm install -g confused-Techie/student-point-tracker
+```
+
+Then to setup the SPT configuration file, it's best to follow the above recommended steps for the `app.yaml` file. But when running SPT from the CLI this configuration file can be placed anywhere.
+
+Then to run SPT:
+
+```
+spt ./PATH/to/config/app.yaml
+```
+
+Alternatively the `SPT_RESOURCE_PATH` environment variable can be set to allow just running `SPT`.
+
+### As an Executable
+
+If the system that will run SPT doesn't have NodeJS installed, then SPT can be run via the CLI just like any other application.
+
+You'll need to install the SPT binary from the latest release.
+
+Then just like every other way to run you'll want to configure the SPT configuration file.
+
+Once this is done, you'll need to run the executable in such a way that SPT can find it's configuration file. Luckily there are plenty of choices in this case:
+
+* Placing the executable in the same directory as the configuration file means it'll be found automatically.
+* Setting the `SPT_RESOURCE_PATH` environment variable with a path to the configuration file.
+* Informing SPT during every run (Detailed below).
+
+Otherwise to run SPT:
+
+```
+.\spt.exe ./Optional/Path/to/app.yaml
+```

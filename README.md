@@ -10,7 +10,7 @@ SPT allows keeping track of students and their points, being able to remove or a
 * [Tasks](./docs/tasks.md) allow customizing STP's behavior, and running actions on a schedule.
 * [Google OAuth](./docs/google-oauth.md) for sign in of Teachers and Students.
 * [Configure](./docs/configuration.md) almost every aspect of STP's internal behavior.
-* [Point Chips](./docs/point-chips.md) for accessing common 
+* [Point Chips](./docs/point-chips.md) for accessing common point amounts.
 
 ## [Installation & Setup](./docs/installation.md)
 

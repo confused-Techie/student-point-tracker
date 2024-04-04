@@ -1,0 +1,47 @@
+# This Action will automate a new release if the version has changed within the `package.json`
+name: Release
+
+on:
+  push:
+    branches:
+      - "main"
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: 18
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+      type: ${{ steps.check.outputs.type }}
+      version: ${{ steps.check.outputs.version }}
+      commit: ${{ steps.check.outputs.commit }}
+
+    steps:
+    - name: Checkout the latest code
+      uses: actions/checkout@v4
+
+    # This step will check if the version in the 'package.json' has been modified
+    - name: Check Version
+      id: check
+      uses: EndBug/version-check@v2
+
+    - name: Setup NodeJS - ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+  test:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+    runs-on: ${{ matrix.os }}
+    needs: check
+    if: needs.check.outputs.changed == 'true'
+
+    steps:
+    - name: Test
+      runs: npm test

@@ -82,8 +82,6 @@ function getConfig() {
     ),
     RESOURCE_PATH: findResourcePath(),
     COLUMNS: findValue("COLUMNS", true),
-    UID: findValue("UID", null),
-    GID: findValue("GID", null),
   };
 }
 
