@@ -4,3 +4,6 @@ storage/
 docs/
 **/*.md
 package-lock.json
+.github
+# We add an ignore to the .github folder since making changes there for our auto commit
+# Actions require additional permissions
