@@ -11,6 +11,9 @@ on:
 
 env:
   NODE_VERSION: 18
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   check:
@@ -50,5 +53,70 @@ jobs:
     if: needs.check.outputs.changed == 'true'
 
     steps:
+    - name: Install Dependencies
+      run: npm install
+
     - name: Test
       run: npm test
+
+  release:
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.github_release.outputs.upload_url }}
+    needs: test
+    if: needs.test.outcome == 'success'
+
+    steps:
+    - name: Release New GitHub Tag
+      uses: actions-ecosystem/action-push-tag@v1
+      with:
+        tag: 'v${{ jobs.check.outputs.version }}'
+        message: '${{ jobs.check.outputs.version }}'
+
+    - name: Create new GitHub Release
+      id: github_release
+      uses: actions/create-release@v1
+      with:
+        tag_name: 'v${{ jobs.check.outputs.version }}'
+        release_name: 'Release v${{ jobs.check.outputs.version }}'
+        draft: false
+        prerelease: false
+        body: Automate this later ;)
+
+    - name: Login to the Container Registry
+      uses: docker/login-action@latest
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata for Docker
+      id: meta
+      uses: docker/metadata-action@latest
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+    - name: Build & Push Docker Image
+      uses: docker/build-push-action@latest
+      with:
+        context: .
+        push: true
+        labels: ${{ steps.meta.outputs.labels }}
+        tags: 'ghcr.io/confused-techie/${{ env.IMAGE_NAME }}:v${{ jobs.check.outputs.version }}'
+
+  assets:
+    runs-on: windows-latest
+    needs: release
+    if: needs.release.outcome == 'success'
+
+    steps:
+    - name: Generate Binaries
+      run: npm run build
+
+    - name: Upload Binary to Release
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ needs.release.outputs.upload_url }}
+        asset_path: ./dist/student-point-tracker.exe
+        asset_name: 'spt-v${{ jobs.check.outputs.version }}.exe'
+        asset_content_type: application/exe
