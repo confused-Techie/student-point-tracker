@@ -33,6 +33,7 @@ jobs:
         # Since we trigger this action via `workflow_run` we fail to have some values
         # this module expects, the below option should make them work together
         static-checking: localIsNew
+        file-url: https://raw.githubusercontent.com/confused-Techie/student-point-tracker/main/package.json
 
     - name: Setup NodeJS - ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v4
