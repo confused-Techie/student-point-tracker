@@ -1,5 +1,9 @@
 # Deployment Documentation
 
+Now to make a new deployment, simple make a commit that alters the `package.json` `version`
+And on the commit use something like "Release 1.2.3"
+More [examples](https://github.com/marketplace/actions/version-check).
+
 ```
 git tag v1.0.0
 git push origin v1.0.0

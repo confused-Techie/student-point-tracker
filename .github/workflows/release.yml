@@ -63,22 +63,22 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.github_release.outputs.upload_url }}
-    needs: test
+    needs: [test, check]
     if: needs.test.outcome == 'success'
 
     steps:
     - name: Release New GitHub Tag
       uses: actions-ecosystem/action-push-tag@v1
       with:
-        tag: 'v${{ jobs.check.outputs.version }}'
-        message: '${{ jobs.check.outputs.version }}'
+        tag: 'v${{ needs.check.outputs.version }}'
+        message: '${{ needs.check.outputs.version }}'
 
     - name: Create new GitHub Release
       id: github_release
       uses: actions/create-release@v1
       with:
-        tag_name: 'v${{ jobs.check.outputs.version }}'
-        release_name: 'Release v${{ jobs.check.outputs.version }}'
+        tag_name: 'v${{ needs.check.outputs.version }}'
+        release_name: 'Release v${{ needs.check.outputs.version }}'
         draft: false
         prerelease: false
         body: Automate this later ;)
@@ -102,11 +102,11 @@ jobs:
         context: .
         push: true
         labels: ${{ steps.meta.outputs.labels }}
-        tags: 'ghcr.io/confused-techie/${{ env.IMAGE_NAME }}:v${{ jobs.check.outputs.version }}'
+        tags: 'ghcr.io/confused-techie/${{ env.IMAGE_NAME }}:v${{ needs.check.outputs.version }}'
 
   assets:
     runs-on: windows-latest
-    needs: release
+    needs: [release, check]
     if: needs.release.outcome == 'success'
 
     steps:
@@ -118,5 +118,5 @@ jobs:
       with:
         upload_url: ${{ needs.release.outputs.upload_url }}
         asset_path: ./dist/student-point-tracker.exe
-        asset_name: 'spt-v${{ jobs.check.outputs.version }}.exe'
+        asset_name: 'spt-v${{ needs.check.outputs.version }}.exe'
         asset_content_type: application/exe
