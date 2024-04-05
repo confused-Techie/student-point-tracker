@@ -46,4 +46,4 @@ jobs:
 
     steps:
     - name: Test
-      runs: npm test
+      run: npm test
