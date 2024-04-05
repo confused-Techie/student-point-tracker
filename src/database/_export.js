@@ -22,7 +22,7 @@ function setupSQL() {
     host: config.DB_HOST,
     username: config.DB_USER,
     database: config.DB_DB,
-    port: config.DB_PORT
+    port: config.DB_PORT,
   };
 
   if (process.env.PROD_STATUS !== "dev") {
