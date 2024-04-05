@@ -32,7 +32,7 @@ jobs:
     - name: Check Version
       id: check
       uses: EndBug/version-check@v2
-      with:
+      #swith:
         # Since we trigger this action via `workflow_run` we fail to have some values
         # this module expects, the below option should make them work together
         #static-checking: localIsNew
