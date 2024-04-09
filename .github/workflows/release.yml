@@ -15,6 +15,7 @@ env:
   IMAGE_NAME: student-point-tracker
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -39,6 +40,8 @@ jobs:
 
     - name: Prep Version-Check Action
       run: cd .github/actions/version-check && npm install
+      with:
+        debug: true
 
     # This step will check if the version in the 'package.json' has been modified
     - name: Check Version

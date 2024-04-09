@@ -9,14 +9,21 @@ const ghcore = require("@actions/core");
 ghcore.setOutput("changed", "false");
 ghcore.setOutput("version", "");
 
+let verbose = ghcore.getInput("debug", { required: false }) ?? false;
 
-const verbose = false;
+if (typeof verbose === "string") {
+  if (verbose === "true") {
+    verbose = true;
+  } else if (verbose === "false") {
+    verbose = false;
+  }
+}
 
 // Lets first find our common ancestor commit
 // This lets us determine the commit where the branch or fork departed from
 const commonAncestorCmd = cp.spawnSync("git", [ "merge-base", "origin/main", "HEAD^" ]);
 
-if (commonAncestorCmd.status !== 0 || commonAncestorCmd.stderr.toString().lenght > 0) {
+if (commonAncestorCmd.status !== 0 || commonAncestorCmd.stderr.toString().length > 0) {
   ghcore.error("Git command has failed!");
   ghcore.error("git merge-base origin/main HEAD^");
   ghcore.error(commonAncestorCmd.stderr.toString());
@@ -27,7 +34,7 @@ if (commonAncestorCmd.status !== 0 || commonAncestorCmd.stderr.toString().lenght
 const commit = commonAncestorCmd.stdout.toString().trim();
 
 if (verbose) {
-  ghcore.debug(`Common Ancestor Commit: '${commit}'`);
+  console.log(`Common Ancestor Commit: '${commit}'`);
 }
 
 const cmd = cp.spawnSync("git", [ "diff", "--name-only", "-r", "HEAD", commit ]);
@@ -45,8 +52,8 @@ const changedFiles = cmd.stdout.toString().split("\n");
 // commits. Now to check if there's any changes we care about.
 
 if (verbose) {
-  ghcore.debug("Array of changed files between commits:");
-  ghcore.debug(changedFiles.join(", "));
+  console.log("Array of changed files between commits:");
+  console.log(changedFiles.join(", "));
 }
 
 const packageJsons = changedFiles.filter(element => element.endsWith("package.json"));
@@ -87,7 +94,7 @@ for (const packFile of packageJsons) {
     if (getPrevFile.stderr.toString().includes("exists on disk, but not in")) {
       // Looks like this file is new. Skip this check
       if (verbose) {
-        ghcore.info(`Looks like this file is new '${packFile}'`);
+        console.log(`Looks like this file is new '${packFile}'`);
         continue;
       }
     }

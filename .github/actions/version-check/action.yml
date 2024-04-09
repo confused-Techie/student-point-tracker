@@ -1,6 +1,10 @@
 name: 'VersionCheck'
 description: 'See if the "package.json" version has changed recently.'
-#inputs:
+inputs:
+  debug:
+    default: false
+    required: false
+    description: 'Wether or not to enable debug logging.'
 outputs:
   changed:
     description: 'If the "package.json" version key changed in the last commit.'
