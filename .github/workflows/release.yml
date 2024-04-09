@@ -20,29 +20,27 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changed: ${{ steps.check.outputs.changed }}
-      type: ${{ steps.check.outputs.type }}
+      #type: ${{ steps.check.outputs.type }}
       version: ${{ steps.check.outputs.version }}
-      commit: ${{ steps.check.outputs.commit }}
+      #commit: ${{ steps.check.outputs.commit }}
 
     steps:
     - name: Checkout the latest code
       uses: actions/checkout@v4
-
-    # This step will check if the version in the 'package.json' has been modified
-    - name: Check Version
-      id: check
-      uses: EndBug/version-check@v2
-      #swith:
-        # Since we trigger this action via `workflow_run` we fail to have some values
-        # this module expects, the below option should make them work together
-        #static-checking: localIsNew
-        #file-url: https://raw.githubusercontent.com/confused-Techie/student-point-tracker/main/package.json
 
     - name: Setup NodeJS - ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
+
+    - name: Prep Version-Check Action
+      run: cd .github/actions/version-check && npm install
+      
+    # This step will check if the version in the 'package.json' has been modified
+    - name: Check Version
+      id: check
+      uses: ./.github/actions/version-check
 
   test:
     strategy:

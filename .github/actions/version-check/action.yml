@@ -1,0 +1,11 @@
+name: 'VersionCheck'
+description: 'See if the "package.json" version has changed recently.'
+#inputs:
+outputs:
+  changed:
+    description: 'If the "package.json" version key changed in the last commit.'
+  version:
+    description: 'What the version has changed too.'
+runs:
+  using: 'node18'
+  main: 'index.js'
