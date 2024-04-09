@@ -21,7 +21,11 @@ if (typeof verbose === "string") {
 
 // Lets first find our common ancestor commit
 // This lets us determine the commit where the branch or fork departed from
-const commonAncestorCmd = cp.spawnSync("git", [ "merge-base", "origin/main", "HEAD^" ]);
+const commonAncestorCmd = cp.spawnSync("git", [ "merge-base", "origin/main", "HEAD~2" ]);
+// TODO Going back two commits here, rather than HEAD^ (one commit)
+// since the action that runs before this will update the `package-lock.json`
+// with a new version after submitting a commit changing it, which causes this action
+// to fail incorrectly.
 
 if (commonAncestorCmd.status !== 0 || commonAncestorCmd.stderr.toString().length > 0) {
   ghcore.error("Git command has failed!");
