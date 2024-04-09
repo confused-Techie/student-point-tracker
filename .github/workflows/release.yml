@@ -57,6 +57,15 @@ jobs:
     if: needs.check.outputs.changed == 'true'
 
     steps:
+    - name: Checkout the latest code
+      uses: actions/checkout@v4
+
+    - name: Setup NodeJS = ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
     - name: Install Dependencies
       run: npm install
 
@@ -71,6 +80,18 @@ jobs:
     if: needs.test.outcome == 'success'
 
     steps:
+    - name: Checkout the latest code
+      uses: actions/checkout@v4
+
+    - name: Setup NodeJS = ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm install
+
     - name: Release New GitHub Tag
       uses: actions-ecosystem/action-push-tag@v1
       with:
@@ -114,6 +135,18 @@ jobs:
     if: needs.release.outcome == 'success'
 
     steps:
+    - name: Checkout the latest code
+      uses: actions/checkout@v4
+
+    - name: Setup NodeJS = ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm install
+      
     - name: Generate Binaries
       run: npm run build
 
