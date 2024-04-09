@@ -53,7 +53,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          #- windows-latest 
+          #- windows-latest
           #- macos-latest
     runs-on: ${{ matrix.os }}
     needs: check
@@ -63,7 +63,7 @@ jobs:
     - name: Checkout the latest code
       uses: actions/checkout@v4
 
-    - name: Setup NodeJS = ${{ env.NODE_VERSION }}
+    - name: Setup NodeJS - ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
@@ -80,7 +80,7 @@ jobs:
     outputs:
       upload_url: ${{ steps.github_release.outputs.upload_url }}
     needs: [test, check]
-    if: needs.test.outcome == 'success'
+    if: needs.test.result == 'success'
 
     steps:
     - name: Checkout the latest code
@@ -135,7 +135,7 @@ jobs:
   assets:
     runs-on: windows-latest
     needs: [release, check]
-    if: needs.release.outcome == 'success'
+    if: needs.release.result == 'success'
 
     steps:
     - name: Checkout the latest code
