@@ -86,7 +86,7 @@ jobs:
 
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
     needs: [test, check]
     if: needs.test.result == 'success'
 
@@ -94,7 +94,7 @@ jobs:
     - name: Checkout the latest code
       uses: actions/checkout@v4
 
-    - name: Setup NodeJS = ${{ env.NODE_VERSION }}
+    - name: Setup NodeJS - ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
