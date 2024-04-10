@@ -77,6 +77,10 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
     outputs:
       upload_url: ${{ steps.github_release.outputs.upload_url }}
     needs: [test, check]
