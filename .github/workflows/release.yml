@@ -83,6 +83,10 @@ jobs:
 
     outputs:
       upload_url: ${{ steps.github_release.outputs.upload_url }}
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
     needs: [test, check]
     if: needs.test.result == 'success'
 
