@@ -1,5 +1,8 @@
 # Student-Point-Tracker
 
+[![Standards](https://github.com/confused-Techie/student-point-tracker/actions/workflows/standards.yml/badge.svg)](https://github.com/confused-Techie/student-point-tracker/actions/workflows/standards.yml)
+[![Release](https://github.com/confused-Techie/student-point-tracker/actions/workflows/release.yml/badge.svg)](https://github.com/confused-Techie/student-point-tracker/actions/workflows/release.yml)
+
 Student-Point-Tracker **(SPT)** is a self-hostable server side application that aims to be the management solution to schools that wish to gamify rewards for good student behavior.
 
 SPT allows keeping track of students and their points, being able to remove or add them as needed, or in bulk. But with SPT's deep customization nearly anything is possible to ensure it works as the solution needed in your environment.
