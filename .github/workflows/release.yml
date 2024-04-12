@@ -77,9 +77,11 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    permissions: write-all
-      #contents: write
-      #packages: write
+    permissions: #write-all
+      contents: write
+      packages: write
+      deployments: write
+      # TODO actually figure out the permissions needed here
 
     outputs:
       upload_url: ${{ steps.github_release.outputs.upload_url }}
@@ -145,7 +147,11 @@ jobs:
 
   assets:
     runs-on: windows-latest
-    permissions: write-all
+    permissions: #write-all
+      contents: write
+      deployments: write
+      packages: write
+    # TODO actually figure out the permissions needed here
     needs: [release, check]
     if: needs.release.result == 'success'
 
