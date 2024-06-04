@@ -1,6 +1,4 @@
-
-module.exports =
-class Res {
+module.exports = class Res {
   constructor() {
     this.headers = {};
     this.status = 0;
@@ -21,4 +19,4 @@ class Res {
     this.content = content;
     return content;
   }
-}
+};

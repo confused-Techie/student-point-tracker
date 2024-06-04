@@ -69,7 +69,7 @@ describe("Verify query.user() returns", () => {
   // But it's a value we pass through the request object to ensure propogation
   const userCases = [
     [{ user: { hello: "world" } }, { hello: "world" }],
-    [{ user: "hello_world" }, {} ]
+    [{ user: "hello_world" }, {}],
   ];
 
   test.each(userCases)("Give %o Retrns %p", (arg, result) => {
