@@ -63,3 +63,16 @@ describe("Verify query.page() returns", () => {
     expect(query.page(arg)).toBe(result);
   });
 });
+
+describe("Verify query.user() returns", () => {
+  // User is special as it isn't really a query paramter.
+  // But it's a value we pass through the request object to ensure propogation
+  const userCases = [
+    [{ user: { hello: "world" } }, { hello: "world" }],
+    [{ user: "hello_world" }, {} ]
+  ];
+
+  test.each(userCases)("Give %o Retrns %p", (arg, result) => {
+    expect(query.user(arg)).toMatchObject(result);
+  });
+});

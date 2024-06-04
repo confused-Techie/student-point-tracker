@@ -14,6 +14,7 @@ let dbTeardown, database, serve, tasks;
 
     // lets take the value made by the test runner databse, and put it where the api server exects.
     const dbUrl = process.env.DATABASE_URL;
+    console.log(dbUrl);
     // This gives us something like postgres://test-user@localhost:5432/test-db
     // We then need to map these values to where the API server expects
     const dbUrlReg = /postgres:\/\/([\/\S]+)@([\/\S]+):(\d+)\/([\/\S]+)/;
