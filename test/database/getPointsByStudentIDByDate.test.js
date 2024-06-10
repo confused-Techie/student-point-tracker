@@ -19,17 +19,19 @@ describe("Verify Date can be destructured", () => {
 describe("Can retreive students by date correctly", () => {
   const dateBeforeTest = new Date().toISOString();
   beforeAll(async () => {
-
     const sql = context.database.getSqlStorageObject();
 
     const addStudent = await context.database.addStudent({
       student_id: 1234,
       first_name: "John",
-      last_name: "Smith"
+      last_name: "Smith",
     });
 
-    const addPoints = await context.database.addPointsToStudent(1234, 10, "test points");
-
+    const addPoints = await context.database.addPointsToStudent(
+      1234,
+      10,
+      "test points"
+    );
   });
 
   afterAll(async () => {
@@ -37,7 +39,10 @@ describe("Can retreive students by date correctly", () => {
   });
 
   test("Can get points added to student at all", async () => {
-    const pointsEverAdded = await context.database.getPointsByStudentIDByDate(1234, dateBeforeTest);
+    const pointsEverAdded = await context.database.getPointsByStudentIDByDate(
+      1234,
+      dateBeforeTest
+    );
 
     expect(pointsEverAdded.ok).toBe(true);
     expect(Array.isArray(pointsEverAdded.content)).toBe(true);
@@ -52,11 +57,14 @@ describe("Can retreive students by date correctly", () => {
     const dateAfterAddition = new Date().toISOString();
     console.log(dateAfterAddition);
 
-    const pointsAddedRecently = await context.database.getPointsByStudentIDByDate(1234, dateAfterAddition);
+    const pointsAddedRecently =
+      await context.database.getPointsByStudentIDByDate(
+        1234,
+        dateAfterAddition
+      );
 
     console.log(pointsAddedRecently);
     expect(pointsAddedRecently.ok).toBe(false);
     expect(Array.isArray(pointsAddedRecently.content)).toBe(false);
   });
-
 });
