@@ -117,19 +117,27 @@ module.exports = class SSO {
     }
 
     if (typeof this.message === "string" && this.message.length > 0) {
-      msgToUse = `${enumDetails[shortToUse]?.message ?? "Server Error"}: ${this.message}`;
+      msgToUse = `${enumDetails[shortToUse]?.message ?? "Server Error"}: ${
+        this.message
+      }`;
     } else if (
       typeof this.content?.message === "string" &&
       this.content.message.length > 0
     ) {
-      msgToUse = `${enumDetails[shortToUse]?.message ?? "Server Error"}: ${this.content.message}`;
+      msgToUse = `${enumDetails[shortToUse]?.message ?? "Server Error"}: ${
+        this.content.message
+      }`;
     } else if (
       typeof this.content?.content === "string" &&
       this.content.content.length > 0
     ) {
-      msgToUse = `${enumDetails[shortToUse]?.message ?? "Server Error"}: ${this.content.content}`;
+      msgToUse = `${enumDetails[shortToUse]?.message ?? "Server Error"}: ${
+        this.content.content
+      }`;
     } else {
-      msgToUse = `${enumDetails[shortToUse]?.message ?? `Server Error: From ${shortToUse}`}`;
+      msgToUse = `${
+        enumDetails[shortToUse]?.message ?? `Server Error: From ${shortToUse}`
+      }`;
     }
 
     codeToUse = enumDetails[shortToUse]?.code ?? 500;

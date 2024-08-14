@@ -34,7 +34,9 @@ module.exports = class SSOPaginate extends SSO {
     linkString += `<${url}?page=${this.total}${paramString}>; rel="last"`;
 
     if (currentPage !== this.total) {
-      linkString += `, <${url}?page=${parseInt(currentPage) + 1}${paramString}>; rel="next"`;
+      linkString += `, <${url}?page=${
+        parseInt(currentPage) + 1
+      }${paramString}>; rel="next"`;
     }
 
     this.link = linkString;

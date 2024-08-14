@@ -75,7 +75,7 @@ module.exports = {
           views: [path.resolve("./views")],
         }
       );
-      
+
       res.set("Content-Type", "text/html");
       res.status(500).send(template);
       return;

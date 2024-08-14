@@ -1,12 +1,12 @@
 /*
-  * Pre-Built Task: attendance.DailyPenalty
-  * This task will read a PowerSchool attendance export, and use this to determine
-  * if a student that has been missing today, will lose a point.
-  *
-  * Since PowerSchool Attendance reports are a transactional log of students that
-  * where gone from school for various reasons we will work to find each individual,
-  * unique student on this list, and remove a point from them.
-*/
+ * Pre-Built Task: attendance.DailyPenalty
+ * This task will read a PowerSchool attendance export, and use this to determine
+ * if a student that has been missing today, will lose a point.
+ *
+ * Since PowerSchool Attendance reports are a transactional log of students that
+ * where gone from school for various reasons we will work to find each individual,
+ * unique student on this list, and remove a point from them.
+ */
 
 const fs = require("fs");
 const path = require("path");
@@ -28,8 +28,8 @@ module.exports = async function main(context, config) {
       "last_name",
       "period",
       "event",
-      "date"
-    ]
+      "date",
+    ],
   });
 
   // === Lets first build a list of students that had an attendance event for this
@@ -49,7 +49,7 @@ module.exports = async function main(context, config) {
       entryArray.push(entry);
 
       students_reported.set(entry.student_id, {
-        entries: entryArray
+        entries: entryArray,
       });
     }
   }
@@ -82,7 +82,7 @@ module.exports = async function main(context, config) {
     return reason;
   };
 
-  students_reported.forEach((value, key, map) => {
+  students_reported.forEach(async (value, key, map) => {
     // TODO: Should students always be set to lose points no matter what the event is?
     // For now, lets assume they are
     const removePoints = await context.database.removePointsFromStudent(
@@ -92,7 +92,9 @@ module.exports = async function main(context, config) {
     );
 
     if (!removePoints.ok) {
-      console.error(`Failed to remove points from '${key}'! Will continue trying...`);
+      console.error(
+        `Failed to remove points from '${key}'! Will continue trying...`
+      );
       console.error(removePoints);
     }
   });

@@ -6,7 +6,7 @@
  * Since PowerSchool Attendance reports are a transactional log of students that
  * were gone from school for various reasons we will work to find who **isn't**
  * on that list, and reward them with a point.
-*/
+ */
 
 const fs = require("fs");
 const path = require("path");
@@ -18,7 +18,8 @@ const POINT_REASON = "Daily Bonus for Attendance";
 module.exports = async function main(context, config) {
   const fileContent = fs.readFileSync(
     path.resolve(config.RESOURCE_PATH, "./att.csv"),
-    { encoding: "utf8" });
+    { encoding: "utf8" }
+  );
   const data = parse(fileContent, {
     delimiter: ",",
     columns: [
@@ -27,8 +28,8 @@ module.exports = async function main(context, config) {
       "last_name",
       "period",
       "event",
-      "date"
-    ]
+      "date",
+    ],
   });
 
   // === Lets first build a list of students that had an attendance event for this
@@ -48,7 +49,7 @@ module.exports = async function main(context, config) {
       entryArray.push(entry);
 
       students_reported.set(entry.student_id, {
-        entries: entryArray
+        entries: entryArray,
       });
     }
   }
@@ -75,7 +76,9 @@ module.exports = async function main(context, config) {
         POINT_REASON
       );
       if (!addPoints.ok) {
-        console.error(`Failed to add points to ${student.student_id}! Will keep trying others...`);
+        console.error(
+          `Failed to add points to ${student.student_id}! Will keep trying others...`
+        );
         console.error(addPoints);
         // don't throw and keep trying
       }

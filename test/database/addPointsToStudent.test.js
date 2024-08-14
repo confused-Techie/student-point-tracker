@@ -5,7 +5,7 @@ describe("Can add points to student", () => {
     const addStudent = await context.database.addStudent({
       student_id: 1234,
       first_name: "John",
-      last_name: "Smith"
+      last_name: "Smith",
     });
 
     const getStudent = await context.database.getStudentByID("1234");

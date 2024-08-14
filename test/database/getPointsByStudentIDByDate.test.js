@@ -24,7 +24,9 @@ describe("Can retrieve students by date correctly", () => {
   const dateBeforeTestUnmodified = new Date();
   // Go back in time just a little bit to ensure we occur before
   // point additions within PostgreSQL
-  dateBeforeTestUnmodified.setSeconds(dateBeforeTestUnmodified.getSeconds() - 1);
+  dateBeforeTestUnmodified.setSeconds(
+    dateBeforeTestUnmodified.getSeconds() - 1
+  );
   const dateBeforeTest = dateBeforeTestUnmodified.toISOString();
   beforeAll(async () => {
     const sql = context.database.getSqlStorageObject();
@@ -63,16 +65,21 @@ describe("Can retrieve students by date correctly", () => {
 
   test("Cannot get points if after timeframe ", async () => {
     const dateAfterAdditionUnmodified = new Date();
-    dateAfterAdditionUnmodified.setSeconds(dateAfterAdditionUnmodified.getSeconds() + 2);
+    dateAfterAdditionUnmodified.setSeconds(
+      dateAfterAdditionUnmodified.getSeconds() + 2
+    );
     const dateAfterAddition = dateAfterAdditionUnmodified.toISOString();
 
-    const pointsAddedRecently = await context.database.getPointsByStudentIDByDate(
-      1234,
-      dateAfterAddition
-    );
+    const pointsAddedRecently =
+      await context.database.getPointsByStudentIDByDate(
+        1234,
+        dateAfterAddition
+      );
 
     expect(pointsAddedRecently.ok).toBe(false);
     expect(pointsAddedRecently.short).toBe("not_found");
-    expect(pointsAddedRecently.content).toBe("Student 1234 not found. Or points not found.");
+    expect(pointsAddedRecently.content).toBe(
+      "Student 1234 not found. Or points not found."
+    );
   });
 });

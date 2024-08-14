@@ -1,12 +1,12 @@
 /*
-  * Pre-Built Task: attendance.WeeklyBonus
-  * This taks will read every students point history, to determine if they have
-  * recieved a attendance daily penalty on any day that week.
-  * If they have not they will then receive a bonus.
-  *
-  * Because this task checks points recieved since the last Sunday, it should be
-  * run every Friday at Midnight.
-*/
+ * Pre-Built Task: attendance.WeeklyBonus
+ * This taks will read every students point history, to determine if they have
+ * recieved a attendance daily penalty on any day that week.
+ * If they have not they will then receive a bonus.
+ *
+ * Because this task checks points recieved since the last Sunday, it should be
+ * run every Friday at Midnight.
+ */
 
 const POINT_COUNT = 2;
 const POINT_REASON = "Weekly Attendance Bonus";
@@ -30,7 +30,9 @@ module.exports = async function main(context, config) {
     );
 
     if (!studentHistory.ok) {
-      console.error(`We failed to get the student's '${allStudents.content[i].student_id}' point history!`);
+      console.error(
+        `We failed to get the student's '${allStudents.content[i].student_id}' point history!`
+      );
       // Don't throw, we want to continue
       console.error(studentHistory);
       continue;
@@ -57,7 +59,9 @@ module.exports = async function main(context, config) {
     );
 
     if (!addPoints.ok) {
-      console.error(`Failed to add points to ${allStudents.content[i].student_id}`);
+      console.error(
+        `Failed to add points to ${allStudents.content[i].student_id}`
+      );
       console.error(addPoints);
     }
   }
