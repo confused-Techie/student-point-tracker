@@ -45,6 +45,20 @@ async function executeTask(task) {
     task_details: task,
   };
 
+  const builtInTaskHandler = async (scriptSrc) => {
+    try {
+      const mod = require(scriptSrc);
+      const res = await mod(require("../context.js"), config);
+      taskRunStatus.exit_code = res;
+    } catch(err) {
+      console.error(`THe Task '${task.name}' seems to have crashed!`);
+      console.error(err);
+      taskRunStatus.exit_code = 1;
+      taskRunStatus.exit_details = err;
+    }
+    return;
+  };
+
   if (!validateTask(task)) {
     console.error("Invalid task syntax found!");
     console.error(task);
@@ -65,20 +79,21 @@ async function executeTask(task) {
       taskRunStatus.exit_details = "Kicked off 'importer' task.";
       break;
     }
+    case "attendance.DailyBonus": {
+      await builtInTaskHandler("./attendance-dailyBonus.js");
+      break;
+    }
+    case "attendance.DailyPenalty": {
+      await builtInTaskHandler("./attendance-dailyPenalty.js");
+      break;
+    }
+    case "attendance.WeeklyBonus": {
+      await builtInTaskHandler("./attendance-weeklyBonus.js");
+      break;
+    }
     case "jsScript": {
-      try {
-        const customScript = require(
-          path.resolve(`${config.RESOURCE_PATH}/${task.file}`)
-        );
-        let ret = await customScript(require("./context.js"));
-
-        taskRunStatus.exit_code = ret;
-      } catch (err) {
-        console.error(`The Task ${task.name} seems to have crashed!`);
-        console.error(err);
-        taskRunStatus.exit_code = 1;
-        taskRunStatus.exit_details = err;
-      }
+      const customScript = path.resolve(`${config.RESOURCE_PATH}/${task.file}`);
+      await builtInTaskHandler(customScript);
       break;
     }
     default: {

@@ -46,8 +46,8 @@ function wrapper(modToUse) {
     try {
       return await modToUse.exec(getSqlStorageObject(), ...args);
     } catch (err) {
-      console.error(`SQL command error: ${err.toString()}`);
-      console.error(`Args: ${args}`);
+      console.log(`SQL command error: ${err.toString()}`);
+      console.log(`Args: ${args}`);
 
       return {
         ok: false,

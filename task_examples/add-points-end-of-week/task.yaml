@@ -1,6 +1,0 @@
-TASKS:
-  - name: "Add bonus points at the end of the week."
-    # Runs Every Friday at Midnight
-    schedule: "0 0 * * 5"
-    action: jsScript
-    file: "add-points-end-of-weeks"

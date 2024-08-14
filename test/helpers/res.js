@@ -1,12 +1,13 @@
-module.exports = class Res {
+module.exports =
+class Res {
   constructor() {
     this.headers = {};
-    this.status = 0;
+    this.statusCode = 0;
     this.content = null;
   }
 
   status(statusCode) {
-    this.status = statusCode;
+    this.statusCode = statusCode;
     return this;
   }
 
@@ -19,4 +20,4 @@ module.exports = class Res {
     this.content = content;
     return content;
   }
-};
+}

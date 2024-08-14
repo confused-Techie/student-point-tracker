@@ -1,5 +1,9 @@
 const context = require("../../src/context.js");
 
+// === WARNING: Seems that during local testing there's a slight variance
+// of a few microseconds between the PostGreSQL process, and the NodeJS process.
+// As such we will preform light manipulation of times used accordingly
+
 describe("Verify Date can be destructured", () => {
   test("By using recommended creation", async () => {
     const todaysDate = new Date().toISOString();
@@ -16,8 +20,12 @@ describe("Verify Date can be destructured", () => {
   });
 });
 
-describe("Can retreive students by date correctly", () => {
-  const dateBeforeTest = new Date().toISOString();
+describe("Can retrieve students by date correctly", () => {
+  const dateBeforeTestUnmodified = new Date();
+  // Go back in time just a little bit to ensure we occur before
+  // point additions within PostgreSQL
+  dateBeforeTestUnmodified.setSeconds(dateBeforeTestUnmodified.getSeconds() - 1);
+  const dateBeforeTest = dateBeforeTestUnmodified.toISOString();
   beforeAll(async () => {
     const sql = context.database.getSqlStorageObject();
 
@@ -53,18 +61,18 @@ describe("Can retreive students by date correctly", () => {
     expect(pointsEverAdded.content[0].reason).toBe("test points");
   });
 
-  test("Cannot get points for the right timeframe", async () => {
-    const dateAfterAddition = new Date().toISOString();
-    console.log(dateAfterAddition);
+  test("Cannot get points if after timeframe ", async () => {
+    const dateAfterAdditionUnmodified = new Date();
+    dateAfterAdditionUnmodified.setSeconds(dateAfterAdditionUnmodified.getSeconds() + 2);
+    const dateAfterAddition = dateAfterAdditionUnmodified.toISOString();
 
-    const pointsAddedRecently =
-      await context.database.getPointsByStudentIDByDate(
-        1234,
-        dateAfterAddition
-      );
+    const pointsAddedRecently = await context.database.getPointsByStudentIDByDate(
+      1234,
+      dateAfterAddition
+    );
 
-    console.log(pointsAddedRecently);
     expect(pointsAddedRecently.ok).toBe(false);
-    expect(Array.isArray(pointsAddedRecently.content)).toBe(false);
+    expect(pointsAddedRecently.short).toBe("not_found");
+    expect(pointsAddedRecently.content).toBe("Student 1234 not found. Or points not found.");
   });
 });

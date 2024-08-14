@@ -37,6 +37,9 @@ The action property of a task describes what the task actually does.
 
 The supported values are:
   * `importUsers`: This automatically triggers the import at the specified schedule.
+  * `attendance.DailyBonus`: Provides a daily bonus of points based on attendance.
+  * `attendance.DailyPenalty`: Provides a daily penalty of points based on attendance.
+  * `attendance.WeeklyBonus`: Provides a weekly bonus of points based on attendance.
   * `jsScript`: This would trigger the running of a custom JavaScript file at the specified schedule.
 
 ## File

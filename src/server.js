@@ -37,7 +37,7 @@ let dbTeardown, database, serve, tasks;
   }
 
   const app = require("./main.js");
-  tasks = require("./tasks.js");
+  tasks = require("./tasks/tasks.js");
 
   serve = app.listen(config.PORT, () => {
     console.log(`Server Listening on port ${config.PORT}`);

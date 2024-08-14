@@ -60,7 +60,7 @@ module.exports = {
           problem_url: context.config.REPORT_A_PROBLEM_URL,
           locale: context.config.LOCALE,
           student: student.content,
-          points: studentPoints.content,
+          points: student.content?.points ?? 0,
           presets: context.getPresets(),
           pointChips: context.config.POINT_CHIPS,
           perms: permLevel,
@@ -75,7 +75,7 @@ module.exports = {
           views: [path.resolve("./views")],
         }
       );
-
+      
       res.set("Content-Type", "text/html");
       res.status(500).send(template);
       return;

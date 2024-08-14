@@ -8,10 +8,13 @@ module.exports = {
      * And what you are provided using JavaScript: 'new Date().toISOString()'
      * Any other format WILL NOT WORK.
      */
+    const modifiedDate = date.replace("T", " "); // remove 'T' const from JavaScript
+    // timezone. Seems this value causes hour parsing within PostgreSQL to fail
+
     const command = await sql`
       SELECT *
       FROM points
-      WHERE student = ${id} AND created >= to_timestamp(${date}, 'YYYY-MM-DDTHH24:MI:SS.MSZ') at time zone 'utc'
+      WHERE student = ${id} AND created >= to_timestamp(${modifiedDate}, 'YYYY-MM-DD HH24:MI:SS.MSZ') at time zone 'utc'
       ORDER BY created DESC
     `;
 
