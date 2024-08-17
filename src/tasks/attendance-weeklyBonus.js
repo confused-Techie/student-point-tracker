@@ -53,7 +53,7 @@ module.exports = async function main(context, config) {
     }
 
     const addPoints = await context.database.addPointsToStudent(
-      allStudents.content[i].student_id,
+      `${allStudents.content[i].student_id}`,
       POINT_COUNT,
       POINT_REASON
     );

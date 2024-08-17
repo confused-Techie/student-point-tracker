@@ -86,7 +86,7 @@ module.exports = async function main(context, config) {
     // TODO: Should students always be set to lose points no matter what the event is?
     // For now, lets assume they are
     const removePoints = await context.database.removePointsFromStudent(
-      key,
+      `${key}`,
       POINT_COUNT,
       craftReasonString(value.entries)
     );

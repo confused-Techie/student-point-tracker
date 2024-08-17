@@ -71,7 +71,7 @@ module.exports = async function main(context, config) {
     if (!students_reported.has(student.student_id)) {
       // This student is not on the reported list
       const addPoints = await context.database.addPointsToStudent(
-        student.student_id,
+        `${student.student_id}`,
         POINT_COUNT,
         POINT_REASON
       );

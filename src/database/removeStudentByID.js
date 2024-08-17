@@ -10,7 +10,9 @@ module.exports = {
         `;
 
         if (removePoints.count === 0) {
-          throw `Failed to remove points for ${id}`;
+          // A student may exist without points, we will log this error,
+          // but should not throw on it
+          console.error(`WARN: Failed to remove points for '${id}', this student may not have points, or removal may have errored`);
         }
 
         const removeStudent = await sqlTrans`
