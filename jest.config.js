@@ -25,7 +25,7 @@ module.exports = {
       testMatch: [
         "<rootDir>/test/http/*.test.js",
         "<rootDir>/test/database/*.test.js",
-        "<rootDir>/test/tasks/*.test.js"
+        "<rootDir>/test/tasks/*.test.js",
       ],
     },
   ],

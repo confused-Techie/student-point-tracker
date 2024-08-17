@@ -10,27 +10,33 @@ describe("Is able to award the bonus correctly", () => {
     const addStudent1 = await context.database.addStudent({
       student_id: 1234,
       first_name: "John",
-      last_name: "Smith"
+      last_name: "Smith",
     });
     expect(addStudent1.ok).toBe(true);
 
     const addStudent2 = await context.database.addStudent({
       student_id: 5678,
       first_name: "Jane",
-      last_name: "Smith"
+      last_name: "Smith",
     });
     expect(addStudent2.ok).toBe(true);
     // Create attendance record
-    const text = "student_id,first_name,last_name,period,event,date\n1234,John,Smith,7,A,2024/06/08\n";
+    const text =
+      "student_id,first_name,last_name,period,event,date\n1234,John,Smith,7,A,2024/06/08\n";
     fs.mkdirSync(path.join(__dirname, "./fixtures"));
-    fs.writeFileSync(path.join(__dirname, "./fixtures/att.csv"), text, { encoding: "utf8" });
+    fs.writeFileSync(path.join(__dirname, "./fixtures/att.csv"), text, {
+      encoding: "utf8",
+    });
     // Create Config
     config.RESOURCE_PATH = path.resolve(path.join(__dirname, "./fixtures"));
   });
 
   afterAll(async () => {
     // Clean up fixtures
-    fs.rmSync(path.join(__dirname, "./fixtures/att.csv"), { recursive: true, force: true });
+    fs.rmSync(path.join(__dirname, "./fixtures/att.csv"), {
+      recursive: true,
+      force: true,
+    });
     // Remove students
     const remStudent1 = await context.database.removeStudentByID("1234");
     expect(remStudent1.ok).toBe(true);
@@ -45,7 +51,9 @@ describe("Is able to award the bonus correctly", () => {
     const student1Points = await context.database.getPointsByStudentID("1234");
     // Since this student should have no point history, this call will fail
     expect(student1Points.ok).toBe(false);
-    expect(student1Points.content).toBe("Student 1234 not found. Or points not found.");
+    expect(student1Points.content).toBe(
+      "Student 1234 not found. Or points not found."
+    );
     expect(student1Points.short).toBe("not_found");
 
     const student2Points = await context.database.getPointsByStudentID("5678");
@@ -58,5 +66,4 @@ describe("Is able to award the bonus correctly", () => {
     expect(student2Points.content[0].points_before).toBe("0");
     expect(student2Points.content[0].points_after).toBe("1");
   });
-
 });
