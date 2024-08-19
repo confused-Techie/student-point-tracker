@@ -29,7 +29,9 @@ describe("Is able to award the bonus correctly", () => {
     });
     // Create Config
     config.RESOURCE_PATH = path.resolve(path.join(__dirname, "./fixtures"));
-    config.MOUNTED_RESOURCE_PATH = path.resolve(path.join(__dirname, "./fixtures"));
+    config.MOUNTED_RESOURCE_PATH = path.resolve(
+      path.join(__dirname, "./fixtures")
+    );
   });
 
   afterAll(async () => {
