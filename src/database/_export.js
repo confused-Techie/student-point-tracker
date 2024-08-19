@@ -39,14 +39,14 @@ async function shutdownSQL() {
   }
 }
 
-function wrapper(modToUse) {
+function wrapper(modToUse, modName) {
   // Return this function passing all args based on what module we need to use
   return async (...args) => {
     // Wrap all function calls in a try catch with a singular error handler
     try {
       return await modToUse.exec(getSqlStorageObject(), ...args);
     } catch (err) {
-      console.log(`SQL command error: ${err.toString()}`);
+      console.log(`SQL command error on '${modName}': ${err.toString()}`);
       console.log(`Args: ${args}`);
 
       return {
@@ -85,7 +85,7 @@ const keys = [
 
 for (const key of keys) {
   let tmp = require(`./${key}.js`);
-  exportObj[key] = wrapper(tmp);
+  exportObj[key] = wrapper(tmp, key);
   exportObj[key].safe = tmp.safe;
 }
 
