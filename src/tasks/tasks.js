@@ -1,6 +1,6 @@
 const path = require("path");
 const schedule = require("node-schedule");
-const config = require("./config.js")();
+const config = require("../config.js")();
 
 const SHUTDOWN_TASKS = [];
 const TASK_RUNS = [];

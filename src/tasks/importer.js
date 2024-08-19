@@ -4,8 +4,8 @@ const path = require("path");
 const child_process = require("node:child_process");
 const util = require("node:util");
 const { parse } = require("csv-parse/sync");
-const config = require("./config.js")();
-const database = require("./database/_export.js");
+const config = require("../config.js")();
+const database = require("../database/_export.js");
 
 const exec = util.promisify(child_process.exec);
 
