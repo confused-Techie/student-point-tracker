@@ -3,13 +3,17 @@ const path = require("path");
 const yaml = require("js-yaml");
 
 function findResourcePath() {
+  return process.resourcePath ?? process.env.STP_RESOURCE_PATH ?? "./storage";
+}
+
+function findMountedResourcePath() {
   let fallback;
   if (process.env.PROD_STATUS === "dev") {
     fallback = "./storage";
   } else {
     fallback = "./mnt/storage";
   }
-  return process.resourcePath ?? process.env.STP_RESOURCE_PATH ?? fallback;
+  return process.mountedResourcePath ?? process.env.STP_MOUNTED_RESOURCE_PATH ?? fallback;
 }
 
 function getConfigFile() {
@@ -87,6 +91,7 @@ function getConfig() {
       1000
     ),
     RESOURCE_PATH: findResourcePath(),
+    MOUNTED_RESOURCE_PATH: findMountedResourcePath(),
     COLUMNS: findValue("COLUMNS", true),
   };
 }

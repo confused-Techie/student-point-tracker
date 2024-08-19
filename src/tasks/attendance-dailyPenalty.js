@@ -17,7 +17,7 @@ const POINT_REASON = "Student was marked:"; // + The item they were marked for
 
 module.exports = async function main(context, config) {
   const fileContent = fs.readFileSync(
-    path.resolve(config.RESOURCE_PATH, "./att.csv"),
+    path.resolve(config.MOUNTED_RESOURCE_PATH, "./att.csv"),
     { encoding: "utf8" }
   );
   const data = parse(fileContent, {
