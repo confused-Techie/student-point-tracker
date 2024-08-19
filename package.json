@@ -1,6 +1,6 @@
 {
   "name": "student-point-tracker",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Student behavior, point tracking framework for schools.",
   "main": "./src/server.js",
   "scripts": {

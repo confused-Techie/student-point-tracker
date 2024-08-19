@@ -51,7 +51,7 @@ async function executeTask(task) {
       const res = await mod(require("../context.js"), config);
       taskRunStatus.exit_code = res;
     } catch (err) {
-      console.error(`THe Task '${task.name}' seems to have crashed!`);
+      console.error(`The Task '${task.name}' seems to have crashed!`);
       console.error(err);
       taskRunStatus.exit_code = 1;
       taskRunStatus.exit_details = err;
