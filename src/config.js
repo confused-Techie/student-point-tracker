@@ -13,7 +13,11 @@ function findMountedResourcePath() {
   } else {
     fallback = "./mnt/storage";
   }
-  return process.mountedResourcePath ?? process.env.STP_MOUNTED_RESOURCE_PATH ?? fallback;
+  return (
+    process.mountedResourcePath ??
+    process.env.STP_MOUNTED_RESOURCE_PATH ??
+    fallback
+  );
 }
 
 function getConfigFile() {
