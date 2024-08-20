@@ -11,7 +11,7 @@ function findMountedResourcePath() {
   if (process.env.PROD_STATUS === "dev") {
     fallback = "./storage";
   } else {
-    fallback = "./mnt/storage";
+    fallback = "./storage/mnt";
   }
   return (
     process.mountedResourcePath ??
