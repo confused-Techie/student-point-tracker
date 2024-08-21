@@ -20,7 +20,7 @@ window.addEventListener("load", () => {
 
   // Lets go ahead and setup a proper debounce on the search bar
   let searchTimer;
-  const searchDebounceTime = 3000; // time in ms, 3 seconds here
+  const searchDebounceTime = 1500; // time in ms, 3 seconds here
 
   const searchFunc = async (opts = {}) => {
     if (searchText.value.length === 0) {
