@@ -32,6 +32,7 @@ describe("Is able to award the bonus correctly", () => {
     config.MOUNTED_RESOURCE_PATH = path.resolve(
       path.join(__dirname, "./fixtures")
     );
+    config.ATTENDANCE_FILE = path.resolve(path.join(__dirname, "./fixtures/att.csv"));
   });
 
   afterAll(async () => {
