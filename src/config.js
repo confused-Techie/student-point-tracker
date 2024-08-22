@@ -20,6 +20,16 @@ function findMountedResourcePath() {
   );
 }
 
+function findAttendanceFile() {
+  let fallback;
+  if (process.env.PROD_STATUS === "dev") {
+    fallback = "./storage";
+  } else {
+    fallback = "./storage/mnt";
+  }
+  return path.resolve(path.join(fallback, "attendance", "att.csv"));
+}
+
 function getConfigFile() {
   try {
     let data = null;
@@ -96,6 +106,10 @@ function getConfig() {
     ),
     RESOURCE_PATH: findResourcePath(),
     MOUNTED_RESOURCE_PATH: findMountedResourcePath(),
+    ATTENDANCE_FILE: findValue(
+      "ATTENDANCE_FILE",
+      findAttendanceFile()
+    ),
     COLUMNS: findValue("COLUMNS", true),
   };
 }

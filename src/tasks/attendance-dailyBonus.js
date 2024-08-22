@@ -17,7 +17,7 @@ const POINT_REASON = "Daily Bonus for Attendance";
 
 module.exports = async function main(context, config) {
   const fileContent = fs.readFileSync(
-    path.resolve(config.MOUNTED_RESOURCE_PATH, "./att.csv"),
+    config.ATTENDANCE_FILE,
     { encoding: "utf8" }
   );
   const data = parse(fileContent, {
