@@ -16,10 +16,9 @@ const POINT_COUNT = 1;
 const POINT_REASON = "Student was marked:"; // + The item they were marked for
 
 module.exports = async function main(context, config) {
-  const fileContent = fs.readFileSync(
-    config.ATTENDANCE_FILE,
-    { encoding: "utf8" }
-  );
+  const fileContent = fs.readFileSync(config.ATTENDANCE_FILE, {
+    encoding: "utf8",
+  });
   const data = parse(fileContent, {
     delimiter: ",",
     columns: [

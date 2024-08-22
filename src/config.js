@@ -106,10 +106,7 @@ function getConfig() {
     ),
     RESOURCE_PATH: findResourcePath(),
     MOUNTED_RESOURCE_PATH: findMountedResourcePath(),
-    ATTENDANCE_FILE: findValue(
-      "ATTENDANCE_FILE",
-      findAttendanceFile()
-    ),
+    ATTENDANCE_FILE: findValue("ATTENDANCE_FILE", findAttendanceFile()),
     COLUMNS: findValue("COLUMNS", true),
   };
 }

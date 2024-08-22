@@ -16,10 +16,9 @@ const POINT_COUNT = 1;
 const POINT_REASON = "Daily Bonus for Attendance";
 
 module.exports = async function main(context, config) {
-  const fileContent = fs.readFileSync(
-    config.ATTENDANCE_FILE,
-    { encoding: "utf8" }
-  );
+  const fileContent = fs.readFileSync(config.ATTENDANCE_FILE, {
+    encoding: "utf8",
+  });
   const data = parse(fileContent, {
     delimiter: ",",
     columns: [
