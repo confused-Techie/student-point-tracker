@@ -20,5 +20,5 @@ CREATE TABLE points (
   created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   points_before BIGINT NOT NULL,
   points_after BIGINT NOT NULL,
-  reason VARCHAR(256)
+  reason text
 );

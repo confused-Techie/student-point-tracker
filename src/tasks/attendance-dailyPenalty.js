@@ -75,7 +75,7 @@ module.exports = async function main(context, config) {
         reasonText = "Unexcused Absence";
       }
 
-      reason += ` '${reasonText}' for period '${entries[i].period}';`;
+      reason += ` '${reasonText}' for P${entries[i].period};`;
     }
 
     return reason;
