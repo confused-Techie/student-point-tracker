@@ -46,9 +46,9 @@ module.exports = async function importer(fileName) {
       const exists = await database.getStudentByID(record.student_id);
 
       if (exists.ok) {
-        console.log(
-          `Student '${record.student_id}' already exists in the DB. Skipping...`
-        );
+        // console.log(
+        //   `Student '${record.student_id}' already exists in the DB. Skipping...`
+        // );
         repeatStudentList.push(exists.content);
         continue;
       }
@@ -83,9 +83,14 @@ module.exports = async function importer(fileName) {
         }
       }
 
-      console.log(`Imported '${record.student_id}' without issue...`);
+      //console.log(`Imported '${record.student_id}' without issue...`);
       addedStudentList.push(record);
     }
+
+    console.log(`Successfully imported '${addedStudentList.length}' students.`);
+    console.log(`Since student already exists in DB, skipped importing '${repeatStudentList.length}' students.`);
+    console.log(`Failed to import '${addFailStudentList.length}' students.`);
+
 
     // Once we have imported all users we can now go ahead and disable any users that did not appear in the import
     // Especially since we now have a full list of all students we have modified,
