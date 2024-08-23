@@ -88,9 +88,10 @@ module.exports = async function importer(fileName) {
     }
 
     console.log(`Successfully imported '${addedStudentList.length}' students.`);
-    console.log(`Since student already exists in DB, skipped importing '${repeatStudentList.length}' students.`);
+    console.log(
+      `Since student already exists in DB, skipped importing '${repeatStudentList.length}' students.`
+    );
     console.log(`Failed to import '${addFailStudentList.length}' students.`);
-
 
     // Once we have imported all users we can now go ahead and disable any users that did not appear in the import
     // Especially since we now have a full list of all students we have modified,
