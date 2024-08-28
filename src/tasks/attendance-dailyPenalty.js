@@ -38,6 +38,10 @@ module.exports = async function main(context, config) {
   for (let i = 0; i < data.length; i++) {
     const entry = data[i];
 
+    if (entry.period !== "1") {
+      // We only want to collect attendance data for homeroom
+      continue;
+    }
     if (students_reported.has(entry.student_id)) {
       // This student is already on this list, modify the reason they are here
       let reportedStudent = students_reported.get(entry.student_id);
@@ -55,31 +59,6 @@ module.exports = async function main(context, config) {
 
   // === Now that we have a full list of effected students, lets iterate this list
   // to deduct a point for each valid reason that may appear on the entries array
-  const craftReasonString = (entries) => {
-    let reason = POINT_REASON;
-
-    for (let i = 0; i < entries.length; i++) {
-      let reasonText = "???";
-      // These strings are mirrored in `attendance-weeklyBonus.js`
-      if (entries[i].event === "A") {
-        reasonText = "Absent";
-      } else if (entries[i].event === "L") {
-        reasonText = "Late";
-      } else if (entries[i].event === "T") {
-        reasonText = "Tardy";
-      } else if (entries[i].event === "S") {
-        reasonText = "Suspension";
-      } else if (entries[i].event === "I") {
-        reasonText = "Illness";
-      } else if (entries[i].event === "X") {
-        reasonText = "Unexcused Absence";
-      }
-
-      reason += ` '${reasonText}' for P${entries[i].period};`;
-    }
-
-    return reason;
-  };
 
   students_reported.forEach(async (value, key, map) => {
     // TODO: Should students always be set to lose points no matter what the event is?
@@ -87,7 +66,7 @@ module.exports = async function main(context, config) {
     const removePoints = await context.database.removePointsFromStudent(
       `${key}`,
       POINT_COUNT,
-      craftReasonString(value.entries)
+      aggregateReason(value)
     );
 
     if (!removePoints.ok) {
@@ -101,3 +80,61 @@ module.exports = async function main(context, config) {
   console.log("Done adding Daily Penalty");
   return 0;
 };
+
+function aggregateReason(student) {
+  // Here we get a collection of a single students entries from the attendance log
+  // But here is where we wil filter out the useless info
+  let reason = POINT_REASON;
+  let reasonArr = [];
+
+  for (let i = 0; i < student.entries.length; i++) {
+    let text = getTextForAttendanceCode(student.entries[i].event);
+
+    if (!reasonArr.includes(text)) {
+      reasonArr.push(text);
+    }
+  }
+
+  return `${reason} for ${reasonArr.join(", ")}`;
+}
+
+function getTextForAttendanceCode(code) {
+  switch(code) {
+    case "DP":
+      return "Distant Learning Present";
+    case "A":
+      return "Absent";
+    case "DA":
+      return "Distant Learning Absent";
+    case "I":
+      return "Illness";
+    case "DI":
+      return "Distant Learning Illness";
+    case "E":
+      return "Excused Other";
+    case "DE":
+      return "Distant Learning Excused";
+    case "X":
+      return "Unexcused Absence";
+    case "DX":
+      return "Distant Learning Unexcused";
+    case "S":
+      return "Student Supsended";
+    case "T":
+      return "Tardy";
+    case "L":
+      return "Late by not Tardy";
+    case "U":
+      return "Unverified Absence";
+    case "N":
+      return "Not Compeleted/IS";
+    case "P":
+      return "Pending/IS";
+    case "C":
+      return "Completed/IS";
+    case "H":
+      return "Home Hospital Nonapportionment";
+    default:
+      return "???";
+  }
+}

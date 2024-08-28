@@ -12,7 +12,8 @@ module.exports = {
     let newPointsAmount =
       parseInt(student.content.points, 10) - parseInt(points, 10);
 
-    if (newPointsAmount < 0) {
+    if (newPointsAmount < 0 && false) {
+      // use an AND FALSE to attempt a simple way to switch between negative number support
       // Don't go into the negatives for points
       newPointsAmount = 0;
     }
