@@ -38,18 +38,12 @@ module.exports = async function main(context, config) {
       continue;
     }
 
-    for (let y = 0; y < studentHistory.content.length; y++) {
-      const reason = studentHistory.content[y].reason;
-      if (
-        reason.toLowerCase().includes("absent") ||
-        reason.toLowerCase().includes("late") ||
-        reason.toLowerCase().includes("tardy") ||
-        reason.toLowerCase().includes("suspension") ||
-        reason.toLowerCase().includes("illness") ||
-        reason.toLowerCase().includes("unexcused absence")
-      ) {
-        continue;
-      }
+    // Since we want to make an approxomite assumption of a student getting a bonus
+    // point everyday of the week, we will just verify that a student had gotten
+    // 5 points this past week.
+    // TODO despite the downfalls of this method
+    if (studentHistory.content.length < 5) {
+      continue;
     }
 
     const addPoints = await context.database.addPointsToStudent(
