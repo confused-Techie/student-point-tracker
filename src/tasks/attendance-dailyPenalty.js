@@ -99,7 +99,7 @@ function aggregateReason(student) {
 }
 
 function getTextForAttendanceCode(code) {
-  switch(code) {
+  switch (code) {
     case "DP":
       return "Distant Learning Present";
     case "A":
