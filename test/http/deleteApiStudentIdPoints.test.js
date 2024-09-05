@@ -26,7 +26,7 @@ describe("behaves correctly", () => {
     expect(sso.content.short).toBe("not_found");
   });
 
-  test("Successfully deletes zero points from a student when they have zero points", async () => {
+  test("Successfully brings points into the negative points from a student when they have zero points", async () => {
     const sID = genStudentID();
 
     await db.addStudent({
@@ -54,7 +54,7 @@ describe("behaves correctly", () => {
     const leftover = await db.getStudentByID(sID);
 
     expect(leftover.ok).toBe(true);
-    expect(leftover.content.points).toBe("0");
+    expect(leftover.content.points).toBe("-10");
     expect(leftover.content.student_id).toBe(sID);
 
     await db.removeStudentByID(sID);
@@ -90,7 +90,7 @@ describe("behaves correctly", () => {
     const leftover = await db.getStudentByID(sID);
 
     expect(leftover.ok).toBe(true);
-    expect(leftover.content.points).toBe("0");
+    expect(leftover.content.points).toBe("-5");
     expect(leftover.content.student_id).toBe(sID);
 
     await db.removeStudentByID(sID);
