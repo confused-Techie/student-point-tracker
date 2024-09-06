@@ -38,18 +38,26 @@ module.exports = async function main(context, config) {
   for (let i = 0; i < data.length; i++) {
     const entry = data[i];
 
-    if (students_reported.has(entry.student_id)) {
-      // This student is already on this list, modify the reason they are here
-      let reportedStudent = students_reported.get(entry.student_id);
-      reportedStudent.entries.push(entry);
+    if (entry.event === "") {
+      // This means the student was later marked present, after having been
+      // inaccurately added to the attendance list
+      if (students_reported.has(entry.student_id)) {
+        students_reported.delete(entry.student_id);
+      }
     } else {
-      // This student isn't yet on this list, lets add them
-      let entryArray = [];
-      entryArray.push(entry);
+      if (students_reported.has(entry.student_id)) {
+        // This student is already on this list, modify the reason they are here
+        let reportedStudent = students_reported.get(entry.student_id);
+        reportedStudent.entries.push(entry);
+      } else {
+        // This student isn't yet on this list, lets add them
+        let entryArray = [];
+        entryArray.push(entry);
 
-      students_reported.set(entry.student_id, {
-        entries: entryArray,
-      });
+        students_reported.set(entry.student_id, {
+          entries: entryArray,
+        });
+      }
     }
   }
 
