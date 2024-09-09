@@ -14,12 +14,13 @@ const POINT_REASON = "Weekly Attendance Bonus";
 module.exports = async function main(context, config) {
   const today = new Date();
   const day = today.getDay() || 7; // Get current day number, converting Sun(0) to 7
-  if (day !== 1) { // Adjust only if the day isn't Monday
+  if (day !== 1) {
+    // Adjust only if the day isn't Monday
     today.setHours(-24 * (day - 1)); // Set hours to day number minus 1
     // multiplied by negative 24
   }
   const lastWeekDate = today.toISOString();
-  // lastWeekDate should now be sunday 
+  // lastWeekDate should now be sunday
 
   const allStudents = await context.database.getAllStudentIDs();
 
