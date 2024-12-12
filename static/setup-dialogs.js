@@ -202,9 +202,10 @@ function getBulkIds(idList) {
 
   for (let i = 0; i < idListArray.length; i++) {
     const idVal = idListArray[i].trim().replace(/[^0-9]+/g, "");
-    if (!idArray.includes(idVal)) {
-      idArray.push(idVal);
-    }
+    idArray.push(idVal);
+    // if (!idArray.includes(idVal)) {
+    //   idArray.push(idVal);
+    // }
   }
 
   return idArray;
