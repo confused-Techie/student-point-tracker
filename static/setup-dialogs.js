@@ -185,7 +185,7 @@ async function removePoints(points, reason) {
 
     if (!didFail) {
       generateSuccessSnackbar(
-        `Successfully added '${points}' Points to ${student_ids.length} Students`
+        `Successfully removed '${points}' Points to ${student_ids.length} Students`
       );
     }
   } else {
