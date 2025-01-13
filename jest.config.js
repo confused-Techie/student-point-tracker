@@ -28,5 +28,14 @@ module.exports = {
         "<rootDir>/test/tasks/*.test.js",
       ],
     },
+    {
+      displayName: "v2",
+      setupFilesAfterEnv: [
+        "<rootDir>/test/helpers/expect_setup.js"
+      ],
+      testMatch: [
+        "<rootDir>/lib-tests/*.test.js"
+      ]
+    }
   ],
 };

@@ -9,6 +9,7 @@
     "test": "cross-env PROD_STATUS=dev jest --selectProjects Unit Integration --runInBand",
     "test:unit": "cross-env PROD_STATUS=dev jest --selectProjects Unit --runInBand",
     "test:integration": "cross-env PROD_STATUS=dev jest --selectProjects Integration --runInBand",
+    "test:v2": "jest --selectProjects v2",
     "migrations": "pg-migrations apply --directory ./migrations",
     "less:watch": "nodemon ./scripts/setup_assets.js",
     "lint": "prettier --check -u -w . ",
